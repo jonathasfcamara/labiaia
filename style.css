@@ -119,22 +119,52 @@ footer a { display: block; color: var(--text-gray); text-decoration: none; margi
 .social-icons a:hover { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
 .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #111; color: #555; }
 
-/* --- RESPONSIVIDADE (REVERTIDA) --- */
+/* --- RESPONSIVIDADE CORRIGIDA --- */
 @media (max-width: 768px) {
-    body { padding-top: 130px; }
-    .nav-container { flex-direction: column; gap: 15px; }
-    .desktop-nav { display: none; }
-    .header-cta { width: 100%; text-align: center; }
-    .btn-top { display: block; width: 100%; }
-    
-    .hero-grid, .lp-grid, .footer-grid { grid-template-columns: 1fr; text-align: center; }
-    
-    /* Revertido para alinhamento padrão */
-    .hero-text {
-        padding-right: 0;
-        text-align: center;
+    body { 
+        padding-top: 140px; /* Ajuste para o header fixo não cobrir o título */
     }
 
-    #logoprincipal img { margin: 30px auto 0; width: 70%; }
+    .nav-container { 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .desktop-nav { display: none; }
+
+    .header-cta { 
+        width: 100%; 
+        padding: 0 5%; /* Margem interna para o botão não colar nas bordas */
+    }
+
+    .btn-top { 
+        display: block; 
+        width: 100%; 
+    }
+    
+    .hero-grid, .lp-grid, .footer-grid { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+    }
+    
+    /* CORREÇÃO DO TÍTULO QUE ENCOSTA NA DIREITA */
+    .hero-text h1 {
+        font-size: 2.2rem; /* Tamanho levemente menor para caber melhor */
+        line-height: 1.3;
+        margin: 0 auto 20px auto; /* Centraliza o bloco do título */
+        max-width: 90%; /* Garante que o texto nunca encoste nas bordas (5% de cada lado) */
+        padding: 0;
+    }
+
+    .hero-text p {
+        max-width: 85%;
+        margin: 0 auto 30px auto; /* Centraliza o parágrafo também */
+    }
+
+    #logoprincipal img { 
+        margin: 30px auto 0; 
+        width: 60%; 
+    }
+
     .social-icons { justify-content: center; }
 }
