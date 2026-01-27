@@ -1,3 +1,4 @@
+/* --- CONFIGURAÇÕES GERAIS --- */
 :root {
     --primary-blue: #008cff;
     --dark-bg: #000000;
@@ -6,7 +7,11 @@
     --text-gray: #b0b0b0;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -14,6 +19,7 @@ body {
     color: var(--text-light);
     scroll-behavior: smooth;
     padding-top: 80px;
+    overflow-x: hidden;
 }
 
 .container {
@@ -22,6 +28,25 @@ body {
     padding: 0 5%;
 }
 
+/* --- SISTEMA DE ANIMAÇÃO (VIA JS) --- */
+/* Estado inicial escondido */
+section, 
+.solution-card, 
+.lp-card, 
+footer {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: opacity, transform;
+}
+
+/* Classe aplicada pelo JavaScript ao rolar a página */
+.show {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+/* --- HEADER FIXO --- */
 header {
     background-color: rgba(0, 0, 0, 0.95);
     padding: 15px 0;
@@ -44,10 +69,14 @@ header {
 
 nav ul { display: flex; list-style: none; }
 nav ul li { margin-right: 30px; }
-nav ul li a { text-decoration: none; color: var(--text-light); transition: 0.3s; }
+nav ul li a { 
+    text-decoration: none; 
+    color: var(--text-light); 
+    transition: 0.3s; 
+}
 nav ul li a:hover { color: var(--primary-blue); }
 
-/* BOTÃO MODERN BORDER GLOW */
+/* --- BOTÃO HEADER COM GLOW --- */
 .btn-top {
     position: relative;
     background: #000;
@@ -83,92 +112,182 @@ nav ul li a:hover { color: var(--primary-blue); }
 
 .btn-top:hover {
     transform: scale(1.05);
-    border-color: #fff;
     box-shadow: 0 0 20px var(--primary-blue);
 }
 
-/* Hero Section */
-.hero { padding: 100px 0; background: radial-gradient(circle at top right, #001a33, #000); }
-.hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+/* --- HERO SECTION --- */
+.hero { 
+    padding: 100px 0; 
+    background: radial-gradient(circle at top right, #001a33, #000); 
+}
+
+.hero-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    align-items: center; 
+}
+
 h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; }
 .highlight { color: var(--primary-blue); }
-.hero-text p { color: var(--text-gray); font-size: 1.2rem; margin-bottom: 30px; }
-.btn-main { background: var(--primary-blue); color: #fff; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-.btn-main:hover { background: #005fbd; box-shadow: 0 0 20px var(--primary-blue); }
 
-#logoprincipal img { width: 100%; max-width: 450px; display: block; margin-left: auto; }
+.hero-text p { 
+    color: var(--text-gray); 
+    font-size: 1.2rem; 
+    margin-bottom: 30px; 
+}
 
-/* Soluções e Landing Pages */
+.btn-main { 
+    background: var(--primary-blue); 
+    color: #fff; 
+    padding: 15px 30px; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    transition: 0.3s; 
+    display: inline-block;
+}
+
+.btn-main:hover { 
+    background: #005fbd; 
+    box-shadow: 0 0 20px var(--primary-blue); 
+}
+
+#logoprincipal img { 
+    width: 100%; 
+    max-width: 450px; 
+    display: block; 
+    margin-left: auto; 
+}
+
+/* --- SOLUÇÕES E LANDING PAGES --- */
 .solutions, .lp-section { padding: 80px 0; }
 .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
-.solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.solution-card, .lp-card { background: var(--card-bg); padding: 40px; border-radius: 10px; border-left: 4px solid var(--primary-blue); transition: 0.3s; }
+
+.solutions-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px; 
+}
+
+.solution-card, .lp-card { 
+    background: var(--card-bg); 
+    padding: 40px; 
+    border-radius: 10px; 
+    border-left: 4px solid var(--primary-blue); 
+    transition: 0.3s; 
+}
+
 .solution-card:hover { transform: translateY(-10px); }
-.lp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.lp-card { border-left: none; border-bottom: 4px solid var(--primary-blue); }
 
-/* Footer */
-footer { background-color: #000; padding: 60px 0 20px; border-top: 1px solid #222; }
-.footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.lp-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
+}
+
+.lp-card { 
+    border-left: none; 
+    border-bottom: 4px solid var(--primary-blue); 
+}
+
+/* --- FOOTER CENTRALIZADO --- */
+footer { 
+    background-color: #000; 
+    padding: 60px 0 20px; 
+    border-top: 1px solid #222; 
+    text-align: center; 
+}
+
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 40px; 
+    margin-bottom: 40px; 
+    justify-items: center; 
+}
+
 footer h4 { margin-bottom: 20px; color: var(--primary-blue); }
-footer a { display: block; color: var(--text-gray); text-decoration: none; margin-bottom: 10px; }
-.footer-link-email { color: var(--text-gray); text-decoration: none; transition: 0.3s; }
-.footer-link-email:hover { color: var(--primary-blue); text-shadow: 0 0 8px var(--primary-blue); }
-.social-icons { display: flex; gap: 20px; }
-.social-icons a { color: var(--text-light); font-size: 1.8rem; transition: 0.3s; }
-.social-icons a:hover { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
-.footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #111; color: #555; }
 
-/* --- RESPONSIVIDADE CORRIGIDA --- */
+footer p, footer a { 
+    display: block; 
+    color: var(--text-gray); 
+    text-decoration: none; 
+    margin-bottom: 10px; 
+}
+
+.footer-link-email:hover { 
+    color: var(--primary-blue); 
+}
+
+.social-icons { 
+    display: flex; 
+    gap: 20px; 
+    justify-content: center; 
+}
+
+.social-icons a { 
+    color: var(--text-light); 
+    font-size: 1.8rem; 
+    transition: 0.3s; 
+}
+
+/* AJUSTE FINAL DO RODAPÉ (TEXTO MENOR E LINK DISCRETO) */
+.footer-bottom { 
+    text-align: center; 
+    padding-top: 20px; 
+    border-top: 1px solid #111; 
+    color: #555; 
+    font-size: 0.75rem; /* Texto bem menor */
+}
+
+.footer-studio-link {
+    color: var(--text-gray); !important; /* Cor igual ao texto ao redor */
+    text-decoration: underline !important;
+    display: inline !important;
+}
+
+.footer-studio-link:hover {
+    color: var(--primary-blue) !important;
+}
+
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
-    body { 
-        padding-top: 140px; /* Ajuste para o header fixo não cobrir o título */
-    }
-
-    .nav-container { 
-        flex-direction: column; 
-        gap: 15px; 
-    }
-
+    body { padding-top: 140px; }
+    .nav-container { flex-direction: column; gap: 15px; }
     .desktop-nav { display: none; }
 
-.header-cta { 
+    .header-cta { 
         width: 100%; 
         padding: 0 5%; 
-        display: flex;         /* Adicionado para garantir alinhamento */
-        justify-content: center; /* Centraliza o botão na linha */
+        display: flex;
+        justify-content: center;
     }
 
     .btn-top { 
         display: block; 
         width: 100%; 
-        text-align: center;    /* ISSO CENTRALIZA O ESCRITO DENTRO DO BOTÃO */
-        padding: 12px 0;       /* Ajuste de respiro vertical */
+        text-align: center;
+        padding: 12px 0;
     }
     
     .hero-grid, .lp-grid, .footer-grid { 
         grid-template-columns: 1fr; 
         text-align: center; 
     }
-    
-    /* CORREÇÃO DO TÍTULO QUE ENCOSTA NA DIREITA */
+
     .hero-text h1 {
-        font-size: 2.2rem; /* Tamanho levemente menor para caber melhor */
-        line-height: 1.3;
-        margin: 0 auto 20px auto; /* Centraliza o bloco do título */
-        max-width: 90%; /* Garante que o texto nunca encoste nas bordas (5% de cada lado) */
-        padding: 0;
+        font-size: 2.2rem;
+        max-width: 90%;
+        margin: 0 auto 20px auto;
     }
 
     .hero-text p {
         max-width: 85%;
-        margin: 0 auto 30px auto; /* Centraliza o parágrafo também */
+        margin: 0 auto 30px auto;
     }
 
     #logoprincipal img { 
         margin: 30px auto 0; 
-        width: 60%; 
+        width: 65%; 
     }
-
-    .social-icons { justify-content: center; }
 }

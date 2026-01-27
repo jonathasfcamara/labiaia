@@ -33,7 +33,7 @@
         <div class="container hero-grid">
             <div class="hero-text">
                 <h1>Atendentes de <span class="highlight">IA Personalizados</span> para sua Empresa</h1>
-                <p>Tecnologia avançada em Poços de Caldas para automatizar seu atendimento com inteligência e naturalidade.</p>
+                <p>Tecnologia avançada para automatizar seu atendimento com inteligência, naturalidade e resultados reais.</p>
                 <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Ol%C3%A1%21+Vi+o+site+da+LABIA.IA+e+gostaria+de+entender+como+as+solu%C3%A7%C3%B5es+de+Intelig%C3%AAncia+Artificial+de+voc%C3%AAs+podem+ajudar+no+meu+neg%C3%B3cio.+Pode+me+dar+mais+informa%C3%A7%C3%B5es%3F" class="btn-main">Quero uma IA no meu WhatsApp</a>
             </div>
             <div class="hero-image">
@@ -51,15 +51,15 @@
             <div class="solutions-grid">
                 <div class="solution-card">
                     <h3>Atendimento 24h</h3>
-                    <p>Sua empresa nunca dorme. Respostas instantâneas a qualquer hora do dia ou da noite.</p>
+                    <p>Sua empresa nunca dorme. Respostas instantâneas, todos os dias, a qualquer hora.</p>
                 </div>
                 <div class="solution-card">
                     <h3>Integração Total</h3>
-                    <p>Conectamos sua IA ao WhatsApp, site e sistemas internos de forma fluida.</p>
+                    <p>CConectamos sua IA ao WhatsApp, site e sistemas internos de forma simples e fluida.</p>
                 </div>
                 <div class="solution-card">
-                    <h3>IA com Labia</h3>
-                    <p>Atendentes que aprendem sobre seu produto e conversam como humanos.</p>
+                    <h3>IA com a LABIA.IA</h3>
+                    <p>Atendentes inteligentes que aprendem sobre seu negócio e conversam de forma natural, como humanos.</p>
                 </div>
             </div>
         </div>
@@ -88,8 +88,8 @@
         <div id="contato" class="container footer-grid">
             <div class="footer-contact">
                 <h4>Contato</h4>
-                <p>Email: <a href="mailto:jonathascamara@hotmail.com" class="footer-link-email">jonathascamara@hotmail.com</a></p>
-                <p>Tel: (35) 9866-8075</p>
+                <p>Email: <p> <a href="mailto:jonathascamara@hotmail.com" class="footer-link-email">jonathascamara@hotmail.com</a></p>
+                <p>Telefone: <p> (35) 9866-8075</p>
             </div>
             <div class="footer-social">
                 <h4>Redes Sociais</h4>
@@ -107,8 +107,28 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 LABIA.IA Software Studio. Todos os direitos reservados.</p>
+            <p>&copy; 2024 <p> <a href="https://labiaia.netlify.app/" target="_blank" class="footer-studio-link">LABIA.IA Software Studio</a> <p>Todos os direitos reservados</p>
         </div>
     </footer>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1 // Ativa quando 10% do elemento aparece
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        }, observerOptions);
+
+        // Seleciona todos os elementos que devem animar
+        const elementsToAnimate = document.querySelectorAll('section, .solution-card, .lp-card, footer');
+        elementsToAnimate.forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
