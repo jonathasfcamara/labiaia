@@ -132,14 +132,18 @@ footer a { display: block; color: var(--text-gray); text-decoration: none; margi
 
     .desktop-nav { display: none; }
 
-    .header-cta { 
+.header-cta { 
         width: 100%; 
-        padding: 0 5%; /* Margem interna para o botão não colar nas bordas */
+        padding: 0 5%; 
+        display: flex;         /* Adicionado para garantir alinhamento */
+        justify-content: center; /* Centraliza o botão na linha */
     }
 
     .btn-top { 
         display: block; 
         width: 100%; 
+        text-align: center;    /* ISSO CENTRALIZA O ESCRITO DENTRO DO BOTÃO */
+        padding: 12px 0;       /* Ajuste de respiro vertical */
     }
     
     .hero-grid, .lp-grid, .footer-grid { 
