@@ -119,7 +119,7 @@ footer a { display: block; color: var(--text-gray); text-decoration: none; margi
 .social-icons a:hover { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
 .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #111; color: #555; }
 
-/* --- RESPONSIVIDADE --- */
+/* --- RESPONSIVIDADE (REVERTIDA) --- */
 @media (max-width: 768px) {
     body { padding-top: 130px; }
     .nav-container { flex-direction: column; gap: 15px; }
@@ -129,10 +129,10 @@ footer a { display: block; color: var(--text-gray); text-decoration: none; margi
     
     .hero-grid, .lp-grid, .footer-grid { grid-template-columns: 1fr; text-align: center; }
     
-    /* MARGEM DIREITA EXTRA NO TEXTO HERO (H1 E P) */
+    /* Revertido para alinhamento padrão */
     .hero-text {
-        padding-right: 15%; /* Adiciona o respiro maior que você pediu no lado direito */
-        text-align: left;    /* Mantém o texto alinhado à esquerda para não parecer desalinhado com a margem */
+        padding-right: 0;
+        text-align: center;
     }
 
     #logoprincipal img { margin: 30px auto 0; width: 70%; }
