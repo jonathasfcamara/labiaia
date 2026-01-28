@@ -29,7 +29,6 @@ body {
 }
 
 /* --- SISTEMA DE ANIMAÇÃO (VIA JS) --- */
-/* Estado inicial escondido */
 section, 
 .solution-card, 
 .lp-card, 
@@ -40,7 +39,6 @@ footer {
     will-change: opacity, transform;
 }
 
-/* Classe aplicada pelo JavaScript ao rolar a página */
 .show {
     opacity: 1 !important;
     transform: translateY(0) scale(1) !important;
@@ -153,7 +151,7 @@ h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; }
 }
 
 #logoprincipal img { 
-    width: 100%; 
+    width: 50%; 
     max-width: 450px; 
     display: block; 
     margin-left: auto; 
@@ -237,11 +235,11 @@ footer p, footer a {
     padding-top: 20px; 
     border-top: 1px solid #111; 
     color: #555; 
-    font-size: 0.75rem; /* Texto bem menor */
+    font-size: 0.75rem; 
 }
 
 .footer-studio-link {
-    color: var(--text-gray); !important; /* Cor igual ao texto ao redor */
+    color: #555 !important; 
     text-decoration: underline !important;
     display: inline !important;
 }
@@ -288,6 +286,7 @@ footer p, footer a {
 
     #logoprincipal img { 
         margin: 30px auto 0; 
-        width: 65%; 
+        width: 100% !important; /* Logo em 70% no mobile conforme solicitado */
+        max-width: none;
     }
 }
