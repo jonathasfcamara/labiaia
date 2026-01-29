@@ -163,7 +163,7 @@ h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; }
 
 /* --- CArrosel 3d --- */
 .carousel-3d-section {
-    padding: 40px 0; /* Reduzi de 100px para 40px para aproximar as seções */
+    padding: 60px 0 50px; /* Reduzi de 100px para 40px para aproximar as seções */
     perspective: 1500px;
     background: #000;
     overflow: hidden;
