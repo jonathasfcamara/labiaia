@@ -161,6 +161,70 @@ h1 { font-size: 3rem; line-height: 1.2; margin-bottom: 20px; }
     animation-delay: 1s !important; /* Aguarda 2 segundos antes de começar */
 }
 
+/* --- CArrosel 3d --- */
+.carousel-3d-section {
+    padding: 40px 0; /* Reduzi de 100px para 40px para aproximar as seções */
+    perspective: 1500px;
+    background: #000;
+    overflow: hidden;
+}
+
+.carousel-3d-container {
+    width: 320px; /* Aumentado de 250px */
+    height: 380px; /* Aumentado de 300px */
+    margin: 0 auto;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.carousel-3d-track {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotate3d 45s linear infinite;
+}
+
+.carousel-3d-item {
+    position: absolute;
+    width: 320px; /* Aumentado */
+    height: 400px; /* Aumentado */
+    background: rgba(0, 140, 255, 0.05);
+    border: 1px solid rgba(0, 140, 255, 0.15);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.carousel-3d-item img {
+    width: 90%; /* Imagem ocupa mais espaço do card */
+    height: auto;
+    filter: drop-shadow(0 0 15px var(--primary-blue));
+}
+
+/* Distância Z aumentada levemente para acomodar os cards maiores sem colisão */
+.item-1 { transform: rotateY(0deg) translateZ(280px); }
+.item-2 { transform: rotateY(90deg) translateZ(280px); }
+.item-3 { transform: rotateY(180deg) translateZ(280px); }
+.item-4 { transform: rotateY(270deg) translateZ(280px); }
+
+@keyframes rotate3d {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+@media (max-width: 768px) {
+    .carousel-3d-section { padding: 20px 0; }
+    .carousel-3d-container { width: 220px; }
+    .carousel-3d-item { width: 220px; height: 280px; }
+    .item-1 { transform: rotateY(0deg) translateZ(180px); }
+    .item-2 { transform: rotateY(90deg) translateZ(180px); }
+    .item-3 { transform: rotateY(180deg) translateZ(180px); }
+    .item-4 { transform: rotateY(270deg) translateZ(180px); }
+}
+
 /* --- SOLUÇÕES E LANDING PAGES --- */
 .solutions, .lp-section { padding: 80px 0; }
 .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
