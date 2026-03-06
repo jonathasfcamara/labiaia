@@ -17,15 +17,40 @@
                 <ul>
                     <li><a href="#home">Início</a></li>
                     <li><a href="#crm">CRM</a></li>
+                    <li><a href="#ferramentas">Ferramentas</a></li>
                     <li><a href="#sobre">Soluções</a></li>
                     <li><a href="#landing-pages">Landing Pages</a></li>
                     <li><a href="#testegratis">Teste Grátis</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
             </nav>
-            <div class="header-cta">
-                <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Ol%C3%A1%21+Vi+o+site+da+LABIA.IA+e+gostaria+de+entender+como+as+solu%C3%A7%C3%B5es+de+Intelig%C3%AAncia+Artificial+de+voc%C3%AAs+podem+ajudar+no+meu+neg%C3%B3cio.+Pode+me+dar+mais+informa%C3%A7%C3%B5es%3F" class="btn-top">Agendar Consultoria</a>
+            <div class="header-group">
+                <div class="header-logo-mobile">
+                    <img src="/abc/logolabiaiasemfundo.png" alt="Logo Labia.IA">
+                </div>
+                <div class="header-cta">
+                    <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Ol%C3%A1%21+Vi+o+site+da+LABIA.IA+e+gostaria+de+entender+como+as+solu%C3%A7%C3%B5es+de+Intelig%C3%AAncia+Artificial+de+voc%C3%AAs+podem+ajudar+no+meu+neg%C3%B3cio.+Pode+me+dar+mais+informa%C3%A7%C3%B5es%3F" class="btn-top">Agendar Consultoria</a>
+                </div>
+                <button class="hamburger-menu" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <nav class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#crm">CRM</a></li>
+                <li><a href="#ferramentas">Ferramentas</a></li>
+                <li><a href="#sobre">Soluções</a></li>
+                <li><a href="#landing-pages">Landing Pages</a></li>
+                <li><a href="#testegratis">Teste Grátis</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
         </div>
     </header>
 
@@ -51,21 +76,30 @@
          <div class="planos-container">
 
             <!-- Plano Básico -->
-            <div class="plano">
+            <div class="plano" data-plan="basico" data-tools="Atendimento IA + WhatsApp<br>• Agente de Chat<br>• WhatsApp<br>• Funil de Vendas">
                 <img src="/abc/plano-basico.png" alt="Plano Básico">
-                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+B%C3%A1sico+-+Atendimento+IA+%2B+WhatsApp" class="btn-teste">Teste grátis por 7 dias</a>
+                <div class="btn-group">
+                    <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+B%C3%A1sico+-+Atendimento+IA+%2B+WhatsApp" class="btn-teste">Teste grátis por 7 dias</a>
+                    <small class="btn-subtext">Sem compromisso e sem cartão</small>
+                </div>
             </div>
 
             <!-- Plano Premium (destaque) -->
-            <div class="plano plano-premium">
+            <div class="plano plano-premium" data-plan="premium" data-tools="Plataforma Completa<br>• Conversões<br>• Agente de Chat<br>• WhatsApp<br>• Funil de Vendas<br>• Redes Sociais<br>• Produtos<br>• Tarefas<br>• Contatos<br>• Automação<br>• Cadência">
                 <img src="/abc/plano-premium.png" alt="Plano Premium">
-                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Premium+%E2%80%94+Plataforma+Completa" class="btn-teste">Teste grátis por 7 dias</a>
+                <div class="btn-group">
+                    <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Premium+%E2%80%94+Plataforma+Completa" class="btn-teste">Teste grátis por 7 dias</a>
+                    <small class="btn-subtext">Sem compromisso e sem cartão</small>
+                </div>
             </div>
 
             <!-- Plano Intermediário -->
-            <div class="plano">
+            <div class="plano" data-plan="intermediario" data-tools="IA + CRM<br>• CRM<br>• Funil de Vendas<br>• Produtos<br>• Contatos<br>• Agente de Chat<br>• WhatsApp">
                 <img src="/abc/plano-intermediario.png" alt="Plano Intermediário">
-                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Intermedi%C3%A1rio+%E2%80%94+IA+%2B+CRM" class="btn-teste">Teste grátis por 7 dias</a>
+                <div class="btn-group">
+                    <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Intermedi%C3%A1rio+%E2%80%94+IA+%2B+CRM" class="btn-teste">Teste grátis por 7 dias</a>
+                    <small class="btn-subtext">Sem compromisso e sem cartão</small>
+                </div>
             </div>
 
         </div>
@@ -85,6 +119,42 @@
             </div>
         </div>
     </section>    
+
+    <section id="ferramentas" class="ferramentas-section">
+        <div class="container">
+            <h2 class="section-title">Nossas <span class="highlight">Ferramentas</span></h2>
+            <p class="ferramentas-intro">Conheça todas as ferramentas disponíveis na plataforma LABIA.IA para automatizar e otimizar seu negócio.</p>
+            <div class="ferramentas-grid">
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (1).png" alt="Ferramenta 1">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (2).png" alt="Ferramenta 2">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (3).png" alt="Ferramenta 3">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (4).png" alt="Ferramenta 4">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (5).png" alt="Ferramenta 5">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (6).png" alt="Ferramenta 6">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (7).png" alt="Ferramenta 7">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (9).png" alt="Ferramenta 9">
+                </div>
+                <div class="ferramenta-item">
+                    <img src="/abc/ferramentas (10).png" alt="Ferramenta 10">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="sobre" class="solutions">
         <div class="container">
@@ -135,6 +205,26 @@
         </div>
     </section>
 
+    <!-- Modal Popup para Planos -->
+    <div id="planoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Começar seu Teste Grátis</h2>
+            <div id="modalTools" class="modal-tools"></div>
+            <div class="modal-highlight">
+                <p><strong>✓ 7 dias de teste completo</strong></p>
+                <p><strong>✓ Sem necessidade de cartão de crédito</strong></p>
+            </div>
+            <p>Você está prestes a acessar o teste grátis de 7 dias. Durante esse período, você terá acesso completo à plataforma LABIA.IA.</p>
+            <p class="modal-warning">⚠️ Na versão de teste, é necessário configurar sua IA por conta própria. Caso precise, oferecemos serviço de implementação (contratável separadamente). O Plano Premium inclui suporte e implementação.</p>
+            <p><strong>Dica:</strong> Se tiver dificuldade para criar o seu prompt ou precisar de ajuda, nosso time de suporte está pronto para ajudá-lo!</p>
+            <div class="modal-buttons">
+                <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Olá%21+Estou+com+dificuldade+para+criar+o+prompt+no+LABIA.IA.+Pode+me+ajudar%3F" target="_blank" class="btn-suporte">Suporte via WhatsApp</a>
+                <button id="modalContinueBtn" class="btn-continuar">Continuar para Teste</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div id="contato" class="container footer-grid">
             <div class="footer-contact">
@@ -153,8 +243,10 @@
                 <h4>Navegação</h4>
                 <a href="#home">Início</a>
                 <a href="#crm">CRM</a>
+                <a href="#ferramentas">Teste Grátis</a>
                 <a href="#sobre">Soluções</a>
                 <a href="#landing-pages">Landing Pages</a>
+                <a href="#testegratis">Teste Grátis</a>
                 <a href="#contato">Contato</a>
             </div>
         </div>
@@ -228,6 +320,213 @@
             updateLpSlide();
             startAutoPlay();
         }
+
+        // --- MENU HAMBURGER ---
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = mobileNav.querySelectorAll('a');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em um link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Fechar menu ao redimensionar (se voltar para desktop)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                hamburgerBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // --- PLANOS CARROSSEL (DRAG + AUTO) ---
+        // Carousel logic is encapsulated to enable re-initialization on resize.
+        function initPlanosCarousel() {
+            const planosContainer = document.querySelector('.planos-container');
+            if (!planosContainer) return;
+
+            // clear any running auto-scroll timer before doing anything
+            if (planosContainer.autoScrollTimer) {
+                clearInterval(planosContainer.autoScrollTimer);
+                planosContainer.autoScrollTimer = null;
+            }
+            
+            // always remove existing clones first (keep only first 3 original slides)
+            while (planosContainer.children.length > 3) {
+                planosContainer.removeChild(planosContainer.lastChild);
+            }
+            
+            // Reset initialization flag to allow re-initialization on resize
+            planosContainer.dataset.carouselInitialized = '';
+            
+            // only initialize for mobile widths
+            if (window.innerWidth > 768) {
+                // ensure scroll position is reset when leaving mobile
+                planosContainer.scrollLeft = 0;
+                return;
+            }
+            
+            // prevent double initialization
+            if (planosContainer.dataset.carouselInitialized === 'true') return;
+            planosContainer.dataset.carouselInitialized = 'true';
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            planosContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - planosContainer.offsetLeft;
+                scrollLeft = planosContainer.scrollLeft;
+                planosContainer.style.cursor = 'grabbing';
+            });
+
+            planosContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                planosContainer.style.cursor = 'grab';
+            });
+
+            planosContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                planosContainer.style.cursor = 'grab';
+            });
+
+            planosContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - planosContainer.offsetLeft;
+                const walk = (x - startX) * 1;
+                planosContainer.scrollLeft = scrollLeft - walk;
+            });
+
+            planosContainer.style.cursor = 'grab';
+
+            // prepare infinite loop by cloning slides (clone twice for smoother infinite scroll)
+            const slides = Array.from(planosContainer.children);
+            for (let i = 0; i < 2; i++) {
+                slides.forEach(item => {
+                    const copy = item.cloneNode(true);
+                    planosContainer.appendChild(copy);
+                });
+            }
+            
+            // Calcular largura real considerando gaps
+            const firstSlide = planosContainer.children[0];
+            const slideComputedStyle = window.getComputedStyle(planosContainer);
+            const gap = parseFloat(slideComputedStyle.gap) || 20; // gap padrão de 20px
+            const slideWidth = firstSlide.offsetWidth + gap;
+            const originalWidth = slideWidth * 3; // 3 slides originais
+
+            // auto scroll (lentamente) - infinito
+            const startAutoScroll = () => {
+                // Limpar qualquer timer anterior
+                if (planosContainer.autoScrollTimer) {
+                    clearInterval(planosContainer.autoScrollTimer);
+                }
+                
+                planosContainer.autoScrollTimer = setInterval(() => {
+                    planosContainer.scrollLeft += 1;
+                    
+                    // Reset seamlessly com margem de segurança
+                    if (planosContainer.scrollLeft >= originalWidth - 2) {
+                        planosContainer.scrollLeft = 0.5; // pequeno offset para evitar glitches
+                    }
+                }, 30);
+            };
+            
+            const stopAutoScroll = () => {
+                if (planosContainer.autoScrollTimer) {
+                    clearInterval(planosContainer.autoScrollTimer);
+                }
+            };
+
+            planosContainer.addEventListener('mouseenter', stopAutoScroll);
+            planosContainer.addEventListener('mouseleave', startAutoScroll);
+
+            // add touch listeners after scroll helpers exist
+            planosContainer.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - planosContainer.offsetLeft;
+                scrollLeft = planosContainer.scrollLeft;
+                planosContainer.style.cursor = 'grabbing';
+                stopAutoScroll();
+            });
+
+            planosContainer.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - planosContainer.offsetLeft;
+                const walk = (x - startX) * 1;
+                planosContainer.scrollLeft = scrollLeft - walk;
+            });
+
+            planosContainer.addEventListener('touchend', () => {
+                isDown = false;
+                planosContainer.style.cursor = 'grab';
+                startAutoScroll();
+            });
+
+            startAutoScroll();
+        }
+
+        window.addEventListener('load', initPlanosCarousel);
+        window.addEventListener('resize', initPlanosCarousel);
+
+        // --- MODAL POPUP PARA PLANOS ---
+        const planoModal = document.getElementById('planoModal');
+        const modalClose = document.querySelector('.modal-close');
+        const modalContinueBtn = document.getElementById('modalContinueBtn');
+        const planosContainerForModal = document.querySelector('.planos-container');
+        let currentTestLink = '';
+
+        // Use event delegation to handle clicks on all .btn-teste buttons (original and cloned)
+        planosContainerForModal.addEventListener('click', (e) => {
+            const btnTeste = e.target.classList.contains('btn-teste') 
+                ? e.target 
+                : e.target.closest('.btn-teste');
+            
+            if (btnTeste) {
+                e.preventDefault();
+                currentTestLink = btnTeste.getAttribute('href');
+
+                // show tools/description extracted from parent .plano dataset
+                const planEl = btnTeste.closest('.plano');
+                const toolsBox = document.getElementById('modalTools');
+                if (planEl && toolsBox) {
+                    toolsBox.innerHTML = planEl.dataset.tools || '';
+                }
+
+                planoModal.style.display = 'block';
+            }
+        });
+
+        modalClose.addEventListener('click', () => {
+            planoModal.style.display = 'none';
+            const toolsBox = document.getElementById('modalTools');
+            if (toolsBox) toolsBox.innerHTML = '';
+        });
+
+        modalContinueBtn.addEventListener('click', () => {
+            if (currentTestLink) {
+                window.open(currentTestLink, '_blank');
+                planoModal.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === planoModal) {
+                planoModal.style.display = 'none';
+                const toolsBox = document.getElementById('modalTools');
+                if (toolsBox) toolsBox.innerHTML = '';
+            }
+        });
     </script>
 </body>
 </html>
