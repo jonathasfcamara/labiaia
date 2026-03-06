@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,13 @@
 
     <header>
         <div class="container nav-container">
-            <div class="logo-box">
-                <img src="/abc/labiaiafundopreto.png" alt="LABIA.IA Logo" class="logo-img">
-            </div>
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="#home">Início</a></li>
+                    <li><a href="#crm">CRM</a></li>
                     <li><a href="#sobre">Soluções</a></li>
                     <li><a href="#landing-pages">Landing Pages</a></li>
+                    <li><a href="#testegratis">Teste Grátis</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
             </nav>
@@ -46,13 +45,43 @@
         </div>
     </section>
 
-    <section class="carousel-3d-section">
-        <div class="carousel-3d-container">
-            <div class="carousel-3d-track">
-                <div class="carousel-3d-item item-1"><img src="/abc/robo.png" alt="IA 1"></div>
-                <div class="carousel-3d-item item-2"><img src="/abc/revolucao.png" alt="IA 2"></div>
-                <div class="carousel-3d-item item-3"><img src="/abc/vendas.png" alt="IA 3"></div>
-                <div class="carousel-3d-item item-4"><img src="/abc/ia.png" alt="IA 4"></div>
+    <section id="testegratis" class="planos-labia">
+        <h2>Planos Labia.IA</h2>
+
+         <div class="planos-container">
+
+            <!-- Plano Básico -->
+            <div class="plano">
+                <img src="/abc/plano-basico.png" alt="Plano Básico">
+                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+B%C3%A1sico+-+Atendimento+IA+%2B+WhatsApp" class="btn-teste">Teste grátis por 7 dias</a>
+            </div>
+
+            <!-- Plano Premium (destaque) -->
+            <div class="plano plano-premium">
+                <img src="/abc/plano-premium.png" alt="Plano Premium">
+                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Premium+%E2%80%94+Plataforma+Completa" class="btn-teste">Teste grátis por 7 dias</a>
+            </div>
+
+            <!-- Plano Intermediário -->
+            <div class="plano">
+                <img src="/abc/plano-intermediario.png" alt="Plano Intermediário">
+                <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Intermedi%C3%A1rio+%E2%80%94+IA+%2B+CRM" class="btn-teste">Teste grátis por 7 dias</a>
+            </div>
+
+        </div>
+    </section>    
+
+    <section id="crm" class="crm-funnel-section">
+        <div class="container crm-funnel-grid">
+            <div class="crm-funnel-text">
+                <h2 class="section-title">CRM e <span class="highlight">Funil de Vendas</span></h2>
+                <p>Um CRM bem estruturado organiza seus contatos, histórico de atendimento e oportunidades em um só lugar.</p>
+                <p>Com o funil de vendas, sua empresa acompanha cada etapa da jornada do lead, identifica gargalos e aumenta a taxa de conversão com decisões baseadas em dados.</p>
+                <p>Resultado: mais previsibilidade comercial, menos perda de oportunidades e crescimento consistente.</p>
+            </div>
+            <div class="crm-funnel-images">
+                <img src="/abc/crm1.png" alt="Painel de CRM">
+                <img src="/abc/crm2.png" alt="Funil de vendas">
             </div>
         </div>
     </section>    
@@ -90,6 +119,16 @@
                     <p>Sua Landing Page já nasce conectada ao seu atendente de IA, garantindo resposta imediata a cada lead.</p>
                 </div>
             </div>
+            <div class="lp-carousel">
+                <button class="lp-carousel-btn lp-carousel-btn-prev" type="button" aria-label="Imagem anterior">&#10094;</button>
+                <div class="lp-carousel-track">
+                    <div class="lp-carousel-item"><a href="https://potfoliomaria.netlify.app/" target="_blank" rel="noopener noreferrer"><img src="/abc/lpportifolio.png" alt="Exemplo de landing page portifolio"></a></div>
+                    <div class="lp-carousel-item"><a href="https://psicologojoseleandro.com.br/" target="_blank" rel="noopener noreferrer"><img src="/abc/lppsicologo.png" alt="Exemplo de landing page psicologo"></a></div>
+                    <div class="lp-carousel-item"><a href="https://labiaia.com.br/" target="_blank" rel="noopener noreferrer"><img src="/abc/lplabia.png" alt="Exemplo de landing page LABIA"></a></div>
+                    <div class="lp-carousel-item"><a href="https://dncproductdigital.netlify.app/" target="_blank" rel="noopener noreferrer"><img src="/abc/lpdnc.png" alt="Exemplo de landing page DNC"></a></div>
+                </div>
+                <button class="lp-carousel-btn lp-carousel-btn-next" type="button" aria-label="Próxima imagem">&#10095;</button>
+            </div>
             <div style="text-align: center; margin-top: 40px;">
                 <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Quero+saber+mais+sobre+a+criação+de+Landing+Pages" class="btn-main">Solicitar Landing Page</a>
             </div>
@@ -113,6 +152,7 @@
             <div class="footer-links">
                 <h4>Navegação</h4>
                 <a href="#home">Início</a>
+                <a href="#crm">CRM</a>
                 <a href="#sobre">Soluções</a>
                 <a href="#landing-pages">Landing Pages</a>
                 <a href="#contato">Contato</a>
@@ -141,6 +181,53 @@
         // Seleciona todos os elementos que devem animar
         const elementsToAnimate = document.querySelectorAll('section, .solution-card, .lp-card, footer');
         elementsToAnimate.forEach(el => observer.observe(el));
+
+        const lpCarousel = document.querySelector('.lp-carousel');
+        if (lpCarousel) {
+            const lpTrack = lpCarousel.querySelector('.lp-carousel-track');
+            const lpItems = lpCarousel.querySelectorAll('.lp-carousel-item');
+            const prevBtn = lpCarousel.querySelector('.lp-carousel-btn-prev');
+            const nextBtn = lpCarousel.querySelector('.lp-carousel-btn-next');
+            let currentIndex = 0;
+            const totalItems = lpItems.length;
+            let autoPlayTimer;
+
+            const updateLpSlide = () => {
+                lpTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+            };
+
+            const goToNext = () => {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateLpSlide();
+            };
+
+            const goToPrev = () => {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateLpSlide();
+            };
+
+            const startAutoPlay = () => {
+                autoPlayTimer = setInterval(goToNext, 5000);
+            };
+
+            const resetAutoPlay = () => {
+                clearInterval(autoPlayTimer);
+                startAutoPlay();
+            };
+
+            nextBtn.addEventListener('click', () => {
+                goToNext();
+                resetAutoPlay();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                goToPrev();
+                resetAutoPlay();
+            });
+
+            updateLpSlide();
+            startAutoPlay();
+        }
     </script>
 </body>
 </html>
