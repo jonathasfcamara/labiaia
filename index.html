@@ -76,7 +76,7 @@
          <div class="planos-container">
 
             <!-- Plano Básico -->
-            <div class="plano" data-plan="basico" data-tools="Atendimento IA + WhatsApp<br>• Agente de Chat<br>• WhatsApp<br>• Funil de Vendas">
+            <div class="plano" data-plan="basico" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• Atendimento IA</td><td style='padding:2px 0;'>• WhatsApp</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Agente de Chat</td><td style='padding:2px 0;'>• Funil de Vendas</td></tr></table>">
                 <img src="/abc/plano-basico.png" alt="Plano Básico">
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+B%C3%A1sico+-+Atendimento+IA+%2B+WhatsApp" class="btn-teste">Teste grátis por 7 dias</a>
@@ -85,7 +85,7 @@
             </div>
 
             <!-- Plano Premium (destaque) -->
-            <div class="plano plano-premium" data-plan="premium" data-tools="Plataforma Completa<br>• Conversões<br>• Agente de Chat<br>• WhatsApp<br>• Funil de Vendas<br>• Redes Sociais<br>• Produtos<br>• Tarefas<br>• Contatos<br>• Automação<br>• Cadência">
+            <div class="plano plano-premium" data-plan="premium" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• Conversões</td><td style='padding:2px 0;'>• Agente de Chat</td></tr><tr><td style='padding:2px 8px 2px 0;'>• WhatsApp</td><td style='padding:2px 0;'>• Funil de Vendas</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Redes Sociais</td><td style='padding:2px 0;'>• Produtos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Tarefas</td><td style='padding:2px 0;'>• Contatos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Automação</td><td style='padding:2px 0;'>• Cadência</td></tr></table>">
                 <img src="/abc/plano-premium.png" alt="Plano Premium">
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Premium+%E2%80%94+Plataforma+Completa" class="btn-teste">Teste grátis por 7 dias</a>
@@ -94,7 +94,7 @@
             </div>
 
             <!-- Plano Intermediário -->
-            <div class="plano" data-plan="intermediario" data-tools="IA + CRM<br>• CRM<br>• Funil de Vendas<br>• Produtos<br>• Contatos<br>• Agente de Chat<br>• WhatsApp">
+            <div class="plano" data-plan="intermediario" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• IA + CRM</td><td style='padding:2px 0;'>• CRM</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Funil de Vendas</td><td style='padding:2px 0;'>• Produtos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Contatos</td><td style='padding:2px 0;'>• Agente de Chat</td></tr><tr><td style='padding:2px 8px 2px 0;'>• WhatsApp</td><td style='padding:2px 0;'></td></tr></table>">
                 <img src="/abc/plano-intermediario.png" alt="Plano Intermediário">
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Intermedi%C3%A1rio+%E2%80%94+IA+%2B+CRM" class="btn-teste">Teste grátis por 7 dias</a>
@@ -124,6 +124,12 @@
         <div class="container">
             <h2 class="section-title">Nossas <span class="highlight">Ferramentas</span></h2>
             <p class="ferramentas-intro">Conheça todas as ferramentas disponíveis na plataforma LABIA.IA para automatizar e otimizar seu negócio.</p>
+            <div class="ferramentas-video">
+                <div style="padding:75% 0 0 0;position:relative;">
+                    <iframe src="https://player.vimeo.com/video/1171211002?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;loop=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Apresentação LabiaIA"></iframe>
+                </div>
+                <script src="https://player.vimeo.com/api/player.js"></script>
+            </div>
             <div class="ferramentas-grid">
                 <div class="ferramenta-item">
                     <img src="/abc/ferramentas (1).png" alt="Ferramenta 1">
@@ -149,12 +155,24 @@
                 <div class="ferramenta-item">
                     <img src="/abc/ferramentas (9).png" alt="Ferramenta 9">
                 </div>
+                <div class="ferramenta-item ferramenta-item-mobile-only">
+                    <img src="/abc/ferramentas (8).png" alt="Ferramenta 8">
+                </div>
                 <div class="ferramenta-item">
                     <img src="/abc/ferramentas (10).png" alt="Ferramenta 10">
                 </div>
             </div>
         </div>
     </section>
+
+    <div id="ferramentaModal" class="ferramenta-modal" aria-hidden="true">
+        <button type="button" class="ferramenta-modal-close" aria-label="Fechar imagem ampliada">&times;</button>
+        <img id="ferramentaModalImg" src="" alt="">
+    </div>
+    <div id="ferramentaVideoModal" class="ferramenta-modal" aria-hidden="true">
+        <button type="button" class="ferramenta-modal-close" aria-label="Fechar vídeo ampliado">&times;</button>
+        <video id="ferramentaModalVideo" controls playsinline preload="metadata"></video>
+    </div>
 
     <section id="sobre" class="solutions">
         <div class="container">
@@ -209,15 +227,13 @@
     <div id="planoModal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <h2>Começar seu Teste Grátis</h2>
             <div id="modalTools" class="modal-tools"></div>
             <div class="modal-highlight">
                 <p><strong>✓ 7 dias de teste completo</strong></p>
-                <p><strong>✓ Sem necessidade de cartão de crédito</strong></p>
+                <p><strong>✓ Sem usar o cartão de crédito</strong></p>
             </div>
-            <p>Você está prestes a acessar o teste grátis de 7 dias. Durante esse período, você terá acesso completo à plataforma LABIA.IA.</p>
-            <p class="modal-warning">⚠️ Na versão de teste, é necessário configurar sua IA por conta própria. Caso precise, oferecemos serviço de implementação (contratável separadamente). O Plano Premium inclui suporte e implementação.</p>
-            <p><strong>Dica:</strong> Se tiver dificuldade para criar o seu prompt ou precisar de ajuda, nosso time de suporte está pronto para ajudá-lo!</p>
+            <p class="modal-warning">⚠️ Na versão de teste, a configuração da IA é feita por você. Caso precise, oferecemos serviço de implementação (contratado à parte). O Plano Premium inclui suporte.</p>
+            <p><strong>Dica:</strong>💡 Se tiver dúvidas para criar seu prompt, contate-nos.</p>
             <div class="modal-buttons">
                 <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Olá%21+Estou+com+dificuldade+para+criar+o+prompt+no+LABIA.IA.+Pode+me+ajudar%3F" target="_blank" class="btn-suporte">Suporte via WhatsApp</a>
                 <button id="modalContinueBtn" class="btn-continuar">Continuar para Teste</button>
@@ -243,7 +259,7 @@
                 <h4>Navegação</h4>
                 <a href="#home">Início</a>
                 <a href="#crm">CRM</a>
-                <a href="#ferramentas">Teste Grátis</a>
+                <a href="#ferramentas">Ferramentas</a>
                 <a href="#sobre">Soluções</a>
                 <a href="#landing-pages">Landing Pages</a>
                 <a href="#testegratis">Teste Grátis</a>
@@ -381,6 +397,7 @@
             let isDown = false;
             let startX;
             let scrollLeft;
+            let touchMoved = false;
 
             planosContainer.addEventListener('mousedown', (e) => {
                 isDown = true;
@@ -454,6 +471,7 @@
             // add touch listeners after scroll helpers exist
             planosContainer.addEventListener('touchstart', (e) => {
                 isDown = true;
+                touchMoved = false;
                 startX = e.touches[0].pageX - planosContainer.offsetLeft;
                 scrollLeft = planosContainer.scrollLeft;
                 planosContainer.style.cursor = 'grabbing';
@@ -462,14 +480,22 @@
 
             planosContainer.addEventListener('touchmove', (e) => {
                 if (!isDown) return;
+                e.preventDefault();
                 const x = e.touches[0].pageX - planosContainer.offsetLeft;
                 const walk = (x - startX) * 1;
+                if (Math.abs(walk) > 8) {
+                    touchMoved = true;
+                }
                 planosContainer.scrollLeft = scrollLeft - walk;
-            });
+            }, { passive: false });
 
             planosContainer.addEventListener('touchend', () => {
                 isDown = false;
                 planosContainer.style.cursor = 'grab';
+                planosContainer.dataset.touchMoved = touchMoved ? 'true' : 'false';
+                setTimeout(() => {
+                    planosContainer.dataset.touchMoved = 'false';
+                }, 0);
                 startAutoScroll();
             });
 
@@ -486,26 +512,42 @@
         const planosContainerForModal = document.querySelector('.planos-container');
         let currentTestLink = '';
 
-        // Use event delegation to handle clicks on all .btn-teste buttons (original and cloned)
-        planosContainerForModal.addEventListener('click', (e) => {
-            const btnTeste = e.target.classList.contains('btn-teste') 
-                ? e.target 
-                : e.target.closest('.btn-teste');
-            
-            if (btnTeste) {
-                e.preventDefault();
-                currentTestLink = btnTeste.getAttribute('href');
+        const openPlanoModal = (planEl, link) => {
+            if (!planoModal || !planEl || !link) return;
+            currentTestLink = link;
+            const toolsBox = document.getElementById('modalTools');
+            if (toolsBox) {
+                toolsBox.innerHTML = planEl.dataset.tools || '';
+            }
+            planoModal.style.display = 'block';
+        };
 
-                // show tools/description extracted from parent .plano dataset
-                const planEl = btnTeste.closest('.plano');
-                const toolsBox = document.getElementById('modalTools');
-                if (planEl && toolsBox) {
-                    toolsBox.innerHTML = planEl.dataset.tools || '';
+        if (planosContainerForModal) {
+            // Use event delegation to handle clicks on all .btn-teste buttons and plan images (original and cloned)
+            planosContainerForModal.addEventListener('click', (e) => {
+                if (planosContainerForModal.dataset.touchMoved === 'true') return;
+
+                const btnTeste = e.target.classList.contains('btn-teste')
+                    ? e.target
+                    : e.target.closest('.btn-teste');
+                const planoImg = e.target.closest('.plano img');
+                const planEl = e.target.closest('.plano');
+
+                if (btnTeste && planEl) {
+                    e.preventDefault();
+                    openPlanoModal(planEl, btnTeste.getAttribute('href'));
+                    return;
                 }
 
-                planoModal.style.display = 'block';
-            }
-        });
+                if (planoImg && planEl) {
+                    const planBtn = planEl.querySelector('.btn-teste');
+                    if (planBtn) {
+                        e.preventDefault();
+                        openPlanoModal(planEl, planBtn.getAttribute('href'));
+                    }
+                }
+            });
+        }
 
         modalClose.addEventListener('click', () => {
             planoModal.style.display = 'none';
@@ -527,6 +569,87 @@
                 if (toolsBox) toolsBox.innerHTML = '';
             }
         });
+
+        // --- MODAL DE IMAGENS DAS FERRAMENTAS ---
+        const ferramentaModal = document.getElementById('ferramentaModal');
+        const ferramentaModalImg = document.getElementById('ferramentaModalImg');
+        const ferramentaModalClose = ferramentaModal ? ferramentaModal.querySelector('.ferramenta-modal-close') : null;
+        const ferramentaImgs = document.querySelectorAll('.ferramenta-item img');
+        const ferramentasPreviewVideo = document.getElementById('ferramentasPreviewVideo');
+        const ferramentaVideoModal = document.getElementById('ferramentaVideoModal');
+        const ferramentaModalVideo = document.getElementById('ferramentaModalVideo');
+        const ferramentaVideoModalClose = ferramentaVideoModal ? ferramentaVideoModal.querySelector('.ferramenta-modal-close') : null;
+
+        const closeFerramentaModal = () => {
+            if (!ferramentaModal) return;
+            ferramentaModal.classList.remove('active');
+            ferramentaModal.setAttribute('aria-hidden', 'true');
+            if (ferramentaModalImg) {
+                ferramentaModalImg.src = '';
+                ferramentaModalImg.alt = '';
+            }
+        };
+
+        if (ferramentaModal && ferramentaModalImg && ferramentaModalClose && ferramentaImgs.length) {
+            ferramentaImgs.forEach((img) => {
+                img.addEventListener('click', () => {
+                    ferramentaModalImg.src = img.src;
+                    ferramentaModalImg.alt = img.alt || 'Imagem da ferramenta';
+                    ferramentaModal.classList.add('active');
+                    ferramentaModal.setAttribute('aria-hidden', 'false');
+                });
+            });
+
+            ferramentaModalClose.addEventListener('click', closeFerramentaModal);
+
+            ferramentaModal.addEventListener('click', (event) => {
+                if (event.target === ferramentaModal) {
+                    closeFerramentaModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && ferramentaModal.classList.contains('active')) {
+                    closeFerramentaModal();
+                }
+            });
+        }
+
+        const closeFerramentaVideoModal = () => {
+            if (!ferramentaVideoModal || !ferramentaModalVideo) return;
+            ferramentaVideoModal.classList.remove('active');
+            ferramentaVideoModal.setAttribute('aria-hidden', 'true');
+            ferramentaModalVideo.pause();
+            ferramentaModalVideo.removeAttribute('src');
+            ferramentaModalVideo.load();
+        };
+
+        if (ferramentasPreviewVideo && ferramentaVideoModal && ferramentaModalVideo && ferramentaVideoModalClose) {
+            const previewSource = ferramentasPreviewVideo.querySelector('source');
+
+            ferramentasPreviewVideo.addEventListener('click', () => {
+                const videoSrc = previewSource ? previewSource.src : ferramentasPreviewVideo.currentSrc;
+                if (!videoSrc) return;
+
+                ferramentaModalVideo.src = videoSrc;
+                ferramentaVideoModal.classList.add('active');
+                ferramentaVideoModal.setAttribute('aria-hidden', 'false');
+            });
+
+            ferramentaVideoModalClose.addEventListener('click', closeFerramentaVideoModal);
+
+            ferramentaVideoModal.addEventListener('click', (event) => {
+                if (event.target === ferramentaVideoModal) {
+                    closeFerramentaVideoModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && ferramentaVideoModal.classList.contains('active')) {
+                    closeFerramentaVideoModal();
+                }
+            });
+        }
     </script>
 </body>
 </html>
