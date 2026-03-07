@@ -369,17 +369,19 @@
             const planosContainer = document.querySelector('.planos-container');
             if (!planosContainer) return;
 
+            // On mobile, planos are stacked vertically (no carousel behavior).
+            if (window.innerWidth <= 768) {
+                planosContainer.scrollLeft = 0;
+                planosContainer.dataset.carouselInitialized = '';
+                return;
+            }
+
             const centerPremiumCard = () => {
                 const premiumCard = planosContainer.querySelector('.plano-premium');
                 if (!premiumCard) return;
                 const targetLeft = premiumCard.offsetLeft - ((planosContainer.clientWidth - premiumCard.clientWidth) / 2);
                 planosContainer.scrollLeft = Math.max(0, targetLeft);
             };
-
-            if (window.innerWidth > 768) {
-                planosContainer.scrollLeft = 0;
-                return;
-            }
 
             centerPremiumCard();
 
@@ -488,6 +490,7 @@
                 }
 
                 if (planoImg && planEl) {
+                    if (window.innerWidth <= 768) return;
                     const planBtn = planEl.querySelector('.btn-teste');
                     if (planBtn) {
                         e.preventDefault();

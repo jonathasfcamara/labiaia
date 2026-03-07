@@ -1441,36 +1441,41 @@ footer p, footer a {
 @media (max-width: 768px) {
     .planos-container {
         display: flex;
-        gap: 14px;
-        overflow-x: auto !important;
-        overflow-y: visible;
+        flex-direction: column;
+        align-items: center;
         justify-content: flex-start;
-        flex-wrap: nowrap;
-        padding: 10px calc((100vw - 280px) / 2);
-        scroll-snap-type: x mandatory;
-        scroll-padding-inline: calc((100vw - 280px) / 2);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-
-    .planos-container::-webkit-scrollbar {
-        display: none;
+        gap: 24px;
+        overflow: visible !important;
+        padding: 10px 0;
     }
 
     .plano {
-        flex: 0 0 220px;
-        min-width: 220px;
-        scroll-snap-align: center;
+        flex: 0 0 auto;
+        min-width: 280px;
+        width: 280px;
     }
 
     .plano-premium {
-        flex: 0 0 280px;
+        flex: 0 0 auto;
         min-width: 280px;
-        scroll-snap-align: center;
+        width: 280px;
+    }
+
+    .plano[data-plan="premium"] {
+        order: 1;
+    }
+
+    .plano[data-plan="intermediario"] {
+        order: 2;
+    }
+
+    .plano[data-plan="basico"] {
+        order: 3;
     }
 
     .plano img,
     .plano-premium img {
         width: 100%;
+        cursor: default;
     }
 }
