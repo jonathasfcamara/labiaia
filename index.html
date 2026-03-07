@@ -368,88 +368,9 @@
         function initPlanosCarousel() {
             const planosContainer = document.querySelector('.planos-container');
             if (!planosContainer) return;
-
-            // On mobile, planos are stacked vertically (no carousel behavior).
-            if (window.innerWidth <= 768) {
-                planosContainer.scrollLeft = 0;
-                planosContainer.dataset.carouselInitialized = '';
-                return;
-            }
-
-            const centerPremiumCard = () => {
-                const premiumCard = planosContainer.querySelector('.plano-premium');
-                if (!premiumCard) return;
-                const targetLeft = premiumCard.offsetLeft - ((planosContainer.clientWidth - premiumCard.clientWidth) / 2);
-                planosContainer.scrollLeft = Math.max(0, targetLeft);
-            };
-
-            centerPremiumCard();
-
-            if (planosContainer.dataset.carouselInitialized === 'true') {
-                return;
-            }
-            planosContainer.dataset.carouselInitialized = 'true';
-
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let touchMoved = false;
-
-            planosContainer.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - planosContainer.offsetLeft;
-                scrollLeft = planosContainer.scrollLeft;
-                planosContainer.style.cursor = 'grabbing';
-            });
-
-            planosContainer.addEventListener('mouseleave', () => {
-                isDown = false;
-                planosContainer.style.cursor = 'grab';
-            });
-
-            planosContainer.addEventListener('mouseup', () => {
-                isDown = false;
-                planosContainer.style.cursor = 'grab';
-            });
-
-            planosContainer.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - planosContainer.offsetLeft;
-                const walk = (x - startX) * 1;
-                planosContainer.scrollLeft = scrollLeft - walk;
-            });
-
-            planosContainer.style.cursor = 'grab';
-
-            // add touch listeners after scroll helpers exist
-            planosContainer.addEventListener('touchstart', (e) => {
-                isDown = true;
-                touchMoved = false;
-                startX = e.touches[0].pageX - planosContainer.offsetLeft;
-                scrollLeft = planosContainer.scrollLeft;
-                planosContainer.style.cursor = 'grabbing';
-            });
-
-            planosContainer.addEventListener('touchmove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.touches[0].pageX - planosContainer.offsetLeft;
-                const walk = (x - startX) * 1;
-                if (Math.abs(walk) > 8) {
-                    touchMoved = true;
-                }
-                planosContainer.scrollLeft = scrollLeft - walk;
-            }, { passive: false });
-
-            planosContainer.addEventListener('touchend', () => {
-                isDown = false;
-                planosContainer.style.cursor = 'grab';
-                planosContainer.dataset.touchMoved = touchMoved ? 'true' : 'false';
-                setTimeout(() => {
-                    planosContainer.dataset.touchMoved = 'false';
-                }, 0);
-            });
+            planosContainer.scrollLeft = 0;
+            planosContainer.dataset.carouselInitialized = '';
+            planosContainer.dataset.touchMoved = 'false';
         }
 
         window.addEventListener('load', initPlanosCarousel);

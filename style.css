@@ -186,7 +186,7 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
     align-items: flex-end;
     gap: 40px;
     flex-wrap: wrap;
-    touch-action: pan-x;
+    touch-action: auto;
 }
 
 /* ===== CARD DO PLANO ===== */
@@ -538,11 +538,11 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
         font-size: 11px;
         white-space: nowrap;
     }
-    .btn-teste {
+    .modal-content .btn-teste {
         font-size: 12px;
         white-space: nowrap;
     }
-    .btn-subtext {
+    .modal-content .btn-subtext {
         font-size: 10px;
         white-space: nowrap;
     }
@@ -596,11 +596,11 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
         font-size: 10px;
         white-space: nowrap;
     }
-    .btn-teste {
+    .modal-content .btn-teste {
         font-size: 11px;
         white-space: nowrap;
     }
-    .btn-subtext {
+    .modal-content .btn-subtext {
         font-size: 9px;
         white-space: nowrap;
     }
@@ -1447,6 +1447,7 @@ footer p, footer a {
         gap: 24px;
         overflow: visible !important;
         padding: 10px 0;
+        touch-action: pan-y;
     }
 
     .plano {
@@ -1477,5 +1478,20 @@ footer p, footer a {
     .plano-premium img {
         width: 100%;
         cursor: default;
+    }
+
+    .plano .btn-teste {
+        width: 100%;
+        max-width: 280px;
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+        line-height: 1.25;
+    }
+
+    .plano .btn-subtext {
+        white-space: normal;
+        text-align: center;
+        word-break: break-word;
     }
 }
