@@ -413,6 +413,9 @@
                     <button type="button" id="btnCopiarPrompt" class="btn-copy-prompt">COPIAR PROMPT</button>
                     <p id="promptCopyFeedback" class="prompt-copy-feedback" aria-live="polite"></p>
                 </div>
+                <div class="prompt-buttons prompt-buttons-bottom-impl">
+                    <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Ol%C3%A1%21+Quero+contratar+uma+implementa%C3%A7%C3%A3o+estruturada+e+profissional+do+meu+agente+de+IA." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-impl">CONTRATE UMA IMPLEMENTAÇÃO ESTRUTURADA E PROFISSIONAL</a>
+                </div>
             </div>
         </div>
     </section>
@@ -427,7 +430,7 @@
                 <p><strong>✓ Sem usar o cartão de crédito</strong></p>
             </div>
             <p class="modal-warning">⚠️ Na versão de teste, a configuração da IA é feita por você. Caso precise, oferecemos serviço de implementação (contratado à parte). O Plano Premium inclui suporte.</p>
-            <p><strong>Dica:</strong>💡 Se tiver dúvidas para criar seu prompt, contate-nos.</p>
+            <p><strong>Dica:</strong>💡 Se tiver dúvidas para criar seu prompt, <a href="https://labiaia.com.br/#prompt" target="_blank" rel="noopener noreferrer" class="modal-prompt-link">crie o prompt aqui</a>.</p>
             <div class="modal-buttons">
                 <a href="https://api.whatsapp.com/send/?phone=553598668075&text=Olá%21+Estou+com+dificuldade+para+criar+o+prompt+no+LABIA.IA.+Pode+me+ajudar%3F" target="_blank" class="btn-suporte">Suporte via WhatsApp</a>
                 <button id="modalContinueBtn" class="btn-continuar">Continuar para Teste</button>
@@ -911,6 +914,32 @@ Regras gerais de comportamento do agente:
                 }
             });
         }
+
+        // Ajuste fino de rolagem para links de âncora do menu
+        const scrollToAnchorTarget = (hash, behavior = 'smooth') => {
+            if (!hash || !hash.startsWith('#')) return;
+            const target = document.querySelector(hash);
+            if (!target) return;
+            const headerOffset = 124;
+            const targetY = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: targetY, behavior });
+        };
+
+        document.querySelectorAll('a[href^="#"]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const hash = link.getAttribute('href');
+                if (!hash || hash === '#') return;
+                event.preventDefault();
+                history.replaceState(null, '', hash);
+                scrollToAnchorTarget(hash);
+            });
+        });
+
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                setTimeout(() => scrollToAnchorTarget(window.location.hash, 'auto'), 120);
+            }
+        });
     </script>
 </body>
 </html>

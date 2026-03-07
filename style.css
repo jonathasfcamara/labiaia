@@ -1646,13 +1646,66 @@ footer p, footer a {
     font-weight: 700;
     border-radius: 8px;
     padding: 12px 16px;
+    position: relative;
+    overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    animation: implPulse 2.6s ease-in-out infinite;
 }
 
 .btn-whatsapp-impl:hover {
     background: #17a14b;
     transform: translateY(-1px);
     box-shadow: 0 8px 20px rgba(31, 190, 91, 0.35);
+}
+
+.modal-prompt-link {
+    color: #8ed7ff;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.modal-prompt-link:hover {
+    color: #b7e9ff;
+}
+
+.btn-whatsapp-impl::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+    transform: skewX(-20deg);
+    animation: implShine 2.8s linear infinite;
+}
+
+.prompt-buttons-bottom-impl {
+    justify-content: center;
+}
+
+@keyframes implShine {
+    0% {
+        left: -120%;
+    }
+    55% {
+        left: 140%;
+    }
+    100% {
+        left: 140%;
+    }
+}
+
+@keyframes implPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(31, 190, 91, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(31, 190, 91, 0.35);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(31, 190, 91, 0.2);
+    }
 }
 
 @media (max-width: 768px) {
