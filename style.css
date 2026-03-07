@@ -995,6 +995,10 @@ footer p, footer a {
     display: none;
 }
 
+.header-logo-mobile a {
+    display: inline-block;
+}
+
 .header-logo-mobile img {
     height: 35px;
     width: auto;
