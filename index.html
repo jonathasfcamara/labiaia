@@ -369,29 +369,23 @@
             const planosContainer = document.querySelector('.planos-container');
             if (!planosContainer) return;
 
-            // clear any running auto-scroll timer before doing anything
-            if (planosContainer.autoScrollTimer) {
-                clearInterval(planosContainer.autoScrollTimer);
-                planosContainer.autoScrollTimer = null;
-            }
-            
-            // always remove existing clones first (keep only first 3 original slides)
-            while (planosContainer.children.length > 3) {
-                planosContainer.removeChild(planosContainer.lastChild);
-            }
-            
-            // Reset initialization flag to allow re-initialization on resize
-            planosContainer.dataset.carouselInitialized = '';
-            
-            // only initialize for mobile widths
+            const centerPremiumCard = () => {
+                const premiumCard = planosContainer.querySelector('.plano-premium');
+                if (!premiumCard) return;
+                const targetLeft = premiumCard.offsetLeft - ((planosContainer.clientWidth - premiumCard.clientWidth) / 2);
+                planosContainer.scrollLeft = Math.max(0, targetLeft);
+            };
+
             if (window.innerWidth > 768) {
-                // ensure scroll position is reset when leaving mobile
                 planosContainer.scrollLeft = 0;
                 return;
             }
-            
-            // prevent double initialization
-            if (planosContainer.dataset.carouselInitialized === 'true') return;
+
+            centerPremiumCard();
+
+            if (planosContainer.dataset.carouselInitialized === 'true') {
+                return;
+            }
             planosContainer.dataset.carouselInitialized = 'true';
 
             let isDown = false;
@@ -426,48 +420,6 @@
 
             planosContainer.style.cursor = 'grab';
 
-            // prepare infinite loop by cloning slides (clone twice for smoother infinite scroll)
-            const slides = Array.from(planosContainer.children);
-            for (let i = 0; i < 2; i++) {
-                slides.forEach(item => {
-                    const copy = item.cloneNode(true);
-                    planosContainer.appendChild(copy);
-                });
-            }
-            
-            // Calcular largura real considerando gaps
-            const firstSlide = planosContainer.children[0];
-            const slideComputedStyle = window.getComputedStyle(planosContainer);
-            const gap = parseFloat(slideComputedStyle.gap) || 20; // gap padrão de 20px
-            const slideWidth = firstSlide.offsetWidth + gap;
-            const originalWidth = slideWidth * 3; // 3 slides originais
-
-            // auto scroll (lentamente) - infinito
-            const startAutoScroll = () => {
-                // Limpar qualquer timer anterior
-                if (planosContainer.autoScrollTimer) {
-                    clearInterval(planosContainer.autoScrollTimer);
-                }
-                
-                planosContainer.autoScrollTimer = setInterval(() => {
-                    planosContainer.scrollLeft += 1;
-                    
-                    // Reset seamlessly com margem de segurança
-                    if (planosContainer.scrollLeft >= originalWidth - 2) {
-                        planosContainer.scrollLeft = 0.5; // pequeno offset para evitar glitches
-                    }
-                }, 30);
-            };
-            
-            const stopAutoScroll = () => {
-                if (planosContainer.autoScrollTimer) {
-                    clearInterval(planosContainer.autoScrollTimer);
-                }
-            };
-
-            planosContainer.addEventListener('mouseenter', stopAutoScroll);
-            planosContainer.addEventListener('mouseleave', startAutoScroll);
-
             // add touch listeners after scroll helpers exist
             planosContainer.addEventListener('touchstart', (e) => {
                 isDown = true;
@@ -475,7 +427,6 @@
                 startX = e.touches[0].pageX - planosContainer.offsetLeft;
                 scrollLeft = planosContainer.scrollLeft;
                 planosContainer.style.cursor = 'grabbing';
-                stopAutoScroll();
             });
 
             planosContainer.addEventListener('touchmove', (e) => {
@@ -496,10 +447,7 @@
                 setTimeout(() => {
                     planosContainer.dataset.touchMoved = 'false';
                 }, 0);
-                startAutoScroll();
             });
-
-            startAutoScroll();
         }
 
         window.addEventListener('load', initPlanosCarousel);

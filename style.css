@@ -506,7 +506,7 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
         max-width: 252px;
         max-height: 70vh;
         padding: 8px;
-        margin: 14% auto 0 auto;
+        margin: 24% auto 0 auto;
         overflow-y: auto;
     }
     .modal-content h2 {
@@ -563,7 +563,7 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
         max-width: 252px;
         max-height: 70vh;
         padding: 5px;
-        margin: 18% auto 0 auto;
+        margin: 30% auto 0 auto;
         overflow-y: auto;
     }
     .modal-content h2 {
@@ -1434,5 +1434,43 @@ footer p, footer a {
     .plano img,
     .plano-premium img {
         animation: none !important;
+    }
+}
+
+/* Override final do carrossel mobile de planos */
+@media (max-width: 768px) {
+    .planos-container {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto !important;
+        overflow-y: visible;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        padding: 10px calc((100vw - 280px) / 2);
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: calc((100vw - 280px) / 2);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .planos-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .plano {
+        flex: 0 0 220px;
+        min-width: 220px;
+        scroll-snap-align: center;
+    }
+
+    .plano-premium {
+        flex: 0 0 280px;
+        min-width: 280px;
+        scroll-snap-align: center;
+    }
+
+    .plano img,
+    .plano-premium img {
+        width: 100%;
     }
 }
