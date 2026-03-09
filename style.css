@@ -1562,9 +1562,9 @@ footer p, footer a {
 .prompt-gerado-output {
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #2f2f2f;
+    border: 1px solid #3a3a3a;
     border-radius: 10px;
-    background: #111111;
+    background: #1a1a1a;
     color: var(--text-light);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
