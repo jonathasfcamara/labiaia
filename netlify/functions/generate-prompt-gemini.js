@@ -1,42 +1,49 @@
 const GEMINI_API_URL =
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
-const buildInstruction = (formData, promptBase) => {
+const SYSTEM_INSTRUCTION = [
+    'Voce e um especialista senior em engenharia de prompt para agentes de atendimento automatizado de WhatsApp.',
+    'Seu trabalho e escrever prompts finais completos, operacionais e prontos para uso em producao.',
+    'Nao resuma. Nao responda com perfil curto. Nao entregue rascunho.',
+    'Sempre transforme os dados recebidos em um prompt robusto, com contexto, regras, fluxo, perguntas, resumo, acao final e encerramento.',
+    'Se um campo estiver preenchido, esse conteudo deve ser aproveitado no resultado final.',
+    'A resposta final deve ser apenas o prompt final em texto puro, sem comentarios sobre o processo.'
+].join('\n');
+
+const buildUserPrompt = (formData, promptBase) => {
     const pedidoLivreIa = typeof formData?.pedidoLivreIa === 'string' ? formData.pedidoLivreIa.trim() : '';
 
     return [
-        'Voce e um especialista em criacao de prompts para agentes de atendimento no WhatsApp e CRM.',
-        'Sua tarefa e transformar os dados recebidos em um prompt final, claro, profissional, completo e pronto para uso.',
-        'Crie um prompt para uma IA de atendimento automatizado de WhatsApp usando todos os dados preenchidos pela pessoa nos campos do formulario.',
-        'Use as informacoes extras do usuario para personalizar o resultado, sem perder clareza operacional.',
-        'Regras obrigatorias:',
-        '- Responda somente com o prompt final.',
-        '- Escreva em portugues do Brasil.',
-        '- Preserve os fatos enviados pelo usuario.',
-        '- Nao resuma demais e nao devolva apenas um perfil curto do agente.',
-        '- O resultado deve ser extenso, operacional e pronto para colar em um sistema de agente.',
-        '- Estruture o resultado com titulos, secoes e bullets.',
-        '- Inclua orientacoes de comportamento, tom, fluxo de atendimento, coleta de dados, resumo, acao final e encerramento.',
-        '- Sempre aproveite todos os campos preenchidos. Se um campo estiver preenchido, ele deve aparecer de forma util no prompt final.',
-        '- Se houver perguntas, liste todas as perguntas.',
-        '- Se houver campos de resumo, liste todos os campos de resumo.',
-        '- Se houver link final, inclua uma orientacao clara de quando usar esse link.',
-        '- Nao mencione Gemini, IA generativa, bastidores, sistema, JSON ou instrucoes internas.',
+        'Crie um prompt completo para uma IA de atendimento automatizado de WhatsApp.',
+        'A resposta precisa ser mais completa e mais util do que o prompt base de referencia.',
+        'Escreva em portugues do Brasil.',
+        'Preserve os fatos enviados.',
+        'Nao responda com versao resumida.',
+        'Produza um texto longo, detalhado e pronto para colar no campo de instrucoes do agente.',
         '',
-        'A estrutura de saida deve seguir este formato:',
+        'Use obrigatoriamente esta estrutura de saida:',
         'TITULO',
         '1. Identidade do agente',
         '2. Objetivo principal do atendimento',
         '3. Tom de voz e comportamento',
-        '4. Fluxo do atendimento',
-        '5. Perguntas obrigatorias para coleta',
-        '6. Estrutura do resumo final',
-        '7. Acao final esperada',
-        '8. Informacoes da empresa para consulta',
+        '4. Fluxo detalhado do atendimento',
+        '5. Perguntas obrigatorias para coleta de informacoes',
+        '6. Estrutura do resumo final para o cliente',
+        '7. Acao final esperada e quando usar links',
+        '8. Informacoes da empresa para consulta durante a conversa',
         '9. Mensagem de encerramento',
-        '10. Regras que o agente deve seguir',
+        '10. Regras obrigatorias que o agente deve seguir',
         '',
-        'Se algum bloco tiver dados suficientes, detalhe esse bloco com instrucoes praticas. Nao pule blocos importantes quando houver informacao para eles.',
+        'Regras adicionais de qualidade:',
+        '- Cada secao deve ter conteudo util e pratico.',
+        '- O item 4 deve descrever passo a passo como conduzir a conversa.',
+        '- O item 5 deve listar todas as perguntas preenchidas no formulario.',
+        '- O item 6 deve usar todos os campos de resumo informados.',
+        '- O item 7 deve explicar com clareza qual e a conversao ou encaminhamento esperado.',
+        '- O item 10 deve trazer regras claras de conduta, limites e boas praticas.',
+        '- Quando houver informacoes extras do usuario, incorpore isso ao resultado.',
+        '- O resultado precisa ter densidade de conteudo; evite respostas curtas.',
+        '- Mire em algo significativamente mais completo do que um simples resumo do agente.',
         '',
         'Dados do formulario:',
         JSON.stringify(formData, null, 2),
@@ -69,7 +76,7 @@ exports.handler = async (event) => {
 
     try {
         const { formData = {}, promptBase = '' } = JSON.parse(event.body || '{}');
-        const instruction = buildInstruction(formData, promptBase);
+        const userPrompt = buildUserPrompt(formData, promptBase);
 
         const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
             method: 'POST',
@@ -77,19 +84,27 @@ exports.handler = async (event) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                system_instruction: {
+                    parts: [
+                        {
+                            text: SYSTEM_INSTRUCTION
+                        }
+                    ]
+                },
                 contents: [
                     {
                         parts: [
                             {
-                                text: instruction
+                                text: userPrompt
                             }
                         ]
                     }
                 ],
                 generationConfig: {
-                    temperature: 0.7,
+                    temperature: 0.45,
                     topP: 0.9,
-                    maxOutputTokens: 1800
+                    maxOutputTokens: 3200,
+                    responseMimeType: 'text/plain'
                 }
             })
         });
