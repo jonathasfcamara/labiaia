@@ -1559,6 +1559,31 @@ footer p, footer a {
     font-weight: 700;
 }
 
+.prompt-field-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: rgba(232, 241, 251, 0.72);
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.prompt-field-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 140, 255, 0.12);
+    color: #7fc4ff;
+    flex-shrink: 0;
+}
+
+.prompt-field-tip {
+    display: inline-block;
+}
+
 .prompt-field input,
 .prompt-field textarea,
 .prompt-field select,
@@ -1617,6 +1642,10 @@ footer p, footer a {
     margin-bottom: 8px;
     font-weight: 700;
     color: #e9f2fb;
+}
+
+.prompt-ai-extra-box .prompt-field-meta {
+    margin-bottom: 10px;
 }
 
 .prompt-ai-extra-input {
