@@ -405,9 +405,23 @@
                     </div>
                 </form>
 
+                <div class="prompt-ai-extra-box">
+                    <label for="pedidoLivreIa">Informacoes extras para gerar com IA</label>
+                    <textarea id="pedidoLivreIa" class="prompt-ai-extra-input" placeholder="Escreva aqui observacoes, regras, estilo desejado, servicos, publico, objeções, diferenciais ou qualquer detalhe adicional para a IA considerar."></textarea>
+                </div>
+
+                <div class="prompt-generator-note">
+                    <p><strong>Gerar prompt</strong> monta o texto apenas com base no que voce preencheu nos campos.</p>
+                    <p><strong>Gerar com IA</strong> usa os campos preenchidos mais as informacoes extras para criar uma versao mais elaborada e diferente.</p>
+                </div>
+
                 <div class="prompt-buttons">
                     <button type="button" id="btnGerarPrompt" class="btn-main">GERAR PROMPT</button>
-                    <button type="button" id="btnGerarComIa" class="btn-gemini">GERAR COM IA</button>
+                    <button type="button" id="btnGerarComIa" class="btn-gemini">
+                        <span class="btn-gemini-label">GERAR COM IA</span>
+                        <span class="btn-gemini-spinner" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" id="btnLimparPrompt" class="btn-clear-prompt">LIMPAR</button>
                     <p id="promptAiFeedback" class="prompt-ai-feedback" aria-live="polite"></p>
                 </div>
 
@@ -728,10 +742,12 @@
         // --- GERADOR DE PROMPT SIMPLES ---
         const btnGerarPrompt = document.getElementById('btnGerarPrompt');
         const btnGerarComIa = document.getElementById('btnGerarComIa');
+        const btnLimparPrompt = document.getElementById('btnLimparPrompt');
         const btnCopiarPrompt = document.getElementById('btnCopiarPrompt');
         const promptGerado = document.getElementById('promptGerado');
         const promptCopyFeedback = document.getElementById('promptCopyFeedback');
         const promptAiFeedback = document.getElementById('promptAiFeedback');
+        const promptForm = document.getElementById('promptForm');
 
         const getInputValue = (id) => {
             const element = document.getElementById(id);
@@ -916,13 +932,14 @@ Regras gerais de comportamento do agente:
             empresaTelefone: getInputValue('empresaTelefone'),
             empresaSite: getInputValue('empresaSite'),
             empresaInstagram: getInputValue('empresaInstagram'),
-            mensagemEncerramento: getInputValue('mensagemEncerramento')
+            mensagemEncerramento: getInputValue('mensagemEncerramento'),
+            pedidoLivreIa: getInputValue('pedidoLivreIa')
         });
 
         const atualizarEstadoBotaoIa = (loading) => {
             if (!btnGerarComIa) return;
             btnGerarComIa.disabled = loading;
-            btnGerarComIa.textContent = loading ? 'GERANDO...' : 'GERAR COM IA';
+            btnGerarComIa.classList.toggle('is-loading', loading);
         };
 
         const getMensagemErroIa = (error) => {
@@ -1007,6 +1024,27 @@ Regras gerais de comportamento do agente:
                     }
                 } finally {
                     atualizarEstadoBotaoIa(false);
+                }
+            });
+        }
+
+        if (btnLimparPrompt) {
+            btnLimparPrompt.addEventListener('click', () => {
+                if (promptForm) {
+                    promptForm.reset();
+                }
+                const pedidoLivreIa = document.getElementById('pedidoLivreIa');
+                if (pedidoLivreIa) {
+                    pedidoLivreIa.value = '';
+                }
+                if (promptGerado) {
+                    promptGerado.value = '';
+                }
+                if (promptCopyFeedback) {
+                    promptCopyFeedback.textContent = '';
+                }
+                if (promptAiFeedback) {
+                    promptAiFeedback.textContent = '';
                 }
             });
         }

@@ -1594,6 +1594,54 @@ footer p, footer a {
     flex-wrap: wrap;
 }
 
+.prompt-ai-extra-box {
+    margin-top: 20px;
+}
+
+.prompt-ai-extra-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: #e9f2fb;
+}
+
+.prompt-ai-extra-input {
+    width: 100%;
+    min-height: 130px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(7, 16, 26, 0.9);
+    color: #e8f1fb;
+    padding: 14px 16px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.5;
+}
+
+.prompt-ai-extra-input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.2);
+}
+
+.prompt-generator-note {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.prompt-generator-note p {
+    margin: 0;
+    color: #dbe7f4;
+    line-height: 1.5;
+}
+
+.prompt-generator-note p + p {
+    margin-top: 8px;
+}
+
 .prompt-gerado-output {
     margin-top: 16px;
     min-height: 360px;
@@ -1626,6 +1674,11 @@ footer p, footer a {
     font-weight: 800;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 172px;
 }
 
 .btn-gemini:hover {
@@ -1633,11 +1686,46 @@ footer p, footer a {
     box-shadow: 0 8px 20px rgba(0, 208, 132, 0.28);
 }
 
+.btn-gemini-label {
+    display: inline-block;
+}
+
+.btn-gemini-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(4, 19, 29, 0.25);
+    border-top-color: #04131d;
+    border-radius: 50%;
+    display: none;
+}
+
+.btn-gemini.is-loading .btn-gemini-spinner {
+    display: inline-block;
+    animation: geminiSpin 0.8s linear infinite;
+}
+
 .btn-gemini:disabled {
     cursor: wait;
     opacity: 0.75;
     transform: none;
     box-shadow: none;
+}
+
+.btn-clear-prompt {
+    background: transparent;
+    color: #d9e6f2;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-clear-prompt:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .prompt-copy-feedback {
@@ -1741,6 +1829,15 @@ footer p, footer a {
     }
     100% {
         box-shadow: 0 0 0 rgba(31, 190, 91, 0.2);
+    }
+}
+
+@keyframes geminiSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
 

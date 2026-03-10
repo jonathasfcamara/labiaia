@@ -2,9 +2,13 @@ const GEMINI_API_URL =
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
 const buildInstruction = (formData, promptBase) => {
+    const pedidoLivreIa = typeof formData?.pedidoLivreIa === 'string' ? formData.pedidoLivreIa.trim() : '';
+
     return [
         'Voce e um especialista em criacao de prompts para agentes de atendimento no WhatsApp e CRM.',
         'Sua tarefa e transformar os dados recebidos em um prompt final, claro, profissional e pronto para uso.',
+        'Crie um prompt para uma IA de atendimento automatizado de WhatsApp usando os dados preenchidos pela pessoa nos campos do formulario.',
+        'Use as informacoes extras do usuario para personalizar o resultado, sem perder clareza operacional.',
         'Regras obrigatorias:',
         '- Responda somente com o prompt final.',
         '- Escreva em portugues do Brasil.',
@@ -15,6 +19,9 @@ const buildInstruction = (formData, promptBase) => {
         '',
         'Dados do formulario:',
         JSON.stringify(formData, null, 2),
+        '',
+        'Pedido livre do usuario para a IA:',
+        pedidoLivreIa || 'Nenhum pedido adicional informado.',
         '',
         'Prompt base montado localmente:',
         promptBase
