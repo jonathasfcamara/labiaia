@@ -150,12 +150,14 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
 .btn-main { 
     background: var(--primary-blue); 
     color: #fff; 
+    border: none;
     padding: 15px 30px; 
-    border-radius: 5px; 
+    border-radius: 8px; 
     text-decoration: none; 
     font-weight: bold; 
     transition: 0.3s; 
     display: inline-block;
+    cursor: pointer;
 }
 
 .btn-main:hover { 
@@ -1577,6 +1579,18 @@ footer p, footer a {
     line-height: 1.45;
 }
 
+.prompt-field input.example-value,
+.prompt-field textarea.example-value,
+.prompt-ai-extra-input.example-value {
+    color: rgba(232, 241, 251, 0.52);
+}
+
+.prompt-field input::placeholder,
+.prompt-field textarea::placeholder,
+.prompt-ai-extra-input::placeholder {
+    color: rgba(232, 241, 251, 0.45);
+}
+
 .prompt-field input:focus,
 .prompt-field textarea:focus,
 .prompt-field select:focus,
@@ -1679,6 +1693,9 @@ footer p, footer a {
     justify-content: center;
     gap: 10px;
     min-width: 172px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
 }
 
 .btn-gemini:hover {
@@ -1699,9 +1716,34 @@ footer p, footer a {
     display: none;
 }
 
+.btn-gemini::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.34) 50%, rgba(255, 255, 255, 0.08) 100%);
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 0;
+}
+
+.btn-gemini-label,
+.btn-gemini-spinner {
+    position: relative;
+    z-index: 1;
+}
+
 .btn-gemini.is-loading .btn-gemini-spinner {
     display: inline-block;
     animation: geminiSpin 0.8s linear infinite;
+}
+
+.btn-gemini.is-loading::before {
+    opacity: 1;
+    animation: geminiFillSweep 1.4s ease-in-out infinite;
+}
+
+.btn-gemini.is-loading {
+    animation: geminiLoadingPulse 1.4s ease-in-out infinite;
 }
 
 .btn-gemini:disabled {
@@ -1838,6 +1880,33 @@ footer p, footer a {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes geminiFillSweep {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes geminiLoadingPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(0, 208, 132, 0.18);
+        filter: saturate(1);
+    }
+    50% {
+        box-shadow: 0 10px 26px rgba(0, 208, 132, 0.28);
+        filter: saturate(1.12);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(0, 208, 132, 0.18);
+        filter: saturate(1);
     }
 }
 

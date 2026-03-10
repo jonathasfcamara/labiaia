@@ -174,11 +174,32 @@ const buildUserPrompt = (formData, promptBase) => {
 };
 
 exports.handler = async (event) => {
-    if (event.httpMethod !== 'POST') {
+    const method =
+        event?.httpMethod ||
+        event?.requestContext?.http?.method ||
+        event?.requestContext?.httpMethod ||
+        '';
+
+    if (method === 'OPTIONS') {
+        return {
+            statusCode: 204,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS'
+            },
+            body: ''
+        };
+    }
+
+    if (method && method !== 'POST') {
         return {
             statusCode: 405,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ error: 'Method not allowed.' })
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({ error: `Method not allowed (${method}).` })
         };
     }
 
@@ -186,7 +207,10 @@ exports.handler = async (event) => {
     if (!apiKey) {
         return {
             statusCode: 500,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({ error: 'GEMINI_API_KEY nao configurada.' })
         };
     }
@@ -230,13 +254,40 @@ exports.handler = async (event) => {
         const prompt =
             data?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('\n').trim() || '';
         const fallbackDraft = buildStructuredDraft(formData);
+        const finishReason = data?.candidates?.[0]?.finishReason || '';
+        const promptFeedback = data?.promptFeedback;
+        const blockReason = promptFeedback?.blockReason || '';
 
-        if (!response.ok || !prompt) {
+        if (!response.ok) {
             return {
                 statusCode: 502,
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
                 body: JSON.stringify({
-                    error: data?.error?.message || 'Resposta invalida do Gemini.'
+                    error:
+                        data?.error?.message ||
+                        blockReason ||
+                        finishReason ||
+                        'Resposta invalida do Gemini.'
+                })
+            };
+        }
+
+        if (!prompt) {
+            return {
+                statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify({
+                    prompt: fallbackDraft,
+                    warning:
+                        blockReason || finishReason
+                            ? `Gemini nao retornou texto utilizavel (${blockReason || finishReason}). Foi usado o rascunho estruturado.`
+                            : 'Gemini nao retornou texto utilizavel. Foi usado o rascunho estruturado.'
                 })
             };
         }
@@ -246,13 +297,25 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: finalPrompt })
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({
+                prompt: finalPrompt,
+                warning:
+                    finalPrompt === fallbackDraft
+                        ? 'A resposta do Gemini veio curta demais. Foi usado o rascunho estruturado completo.'
+                        : ''
+            })
         };
     } catch (error) {
         return {
             statusCode: 500,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({
                 error: error instanceof Error ? error.message : 'Erro interno ao gerar prompt.'
             })
