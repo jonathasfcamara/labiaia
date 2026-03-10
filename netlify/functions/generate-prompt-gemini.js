@@ -1,5 +1,6 @@
-const GEMINI_API_URL =
-    'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+const GEMINI_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+const getGeminiApiUrl = (model) =>
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
 const SYSTEM_INSTRUCTION = [
     'Voce e um especialista senior em engenharia de prompt para agentes de atendimento automatizado de WhatsApp.',
@@ -218,64 +219,87 @@ exports.handler = async (event) => {
     try {
         const { formData = {}, promptBase = '' } = JSON.parse(event.body || '{}');
         const userPrompt = buildUserPrompt(formData, promptBase);
-
-        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                system_instruction: {
-                    parts: [
-                        {
-                            text: SYSTEM_INSTRUCTION
-                        }
-                    ]
-                },
-                contents: [
-                    {
-                        parts: [
-                            {
-                                text: userPrompt
-                            }
-                        ]
-                    }
-                ],
-                generationConfig: {
-                    temperature: 0.45,
-                    topP: 0.9,
-                    maxOutputTokens: 4096,
-                    responseMimeType: 'text/plain'
-                }
-            })
-        });
-
-        const data = await response.json();
-        const prompt =
-            data?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('\n').trim() || '';
         const fallbackDraft = buildStructuredDraft(formData);
-        const finishReason = data?.candidates?.[0]?.finishReason || '';
-        const promptFeedback = data?.promptFeedback;
-        const blockReason = promptFeedback?.blockReason || '';
+        let lastErrorMessage = '';
+        let lastFinishReason = '';
+        let lastBlockReason = '';
+        let bestPrompt = '';
 
-        if (!response.ok) {
-            return {
-                statusCode: 502,
+        for (const model of GEMINI_MODELS) {
+            const response = await fetch(`${getGeminiApiUrl(model)}?key=${apiKey}`, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    error:
-                        data?.error?.message ||
-                        blockReason ||
-                        finishReason ||
-                        'Resposta invalida do Gemini.'
+                    system_instruction: {
+                        parts: [
+                            {
+                                text: SYSTEM_INSTRUCTION
+                            }
+                        ]
+                    },
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: userPrompt
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        temperature: 0.45,
+                        topP: 0.9,
+                        maxOutputTokens: 4096,
+                        responseMimeType: 'text/plain'
+                    }
                 })
-            };
+            });
+
+            const data = await response.json();
+            const prompt =
+                data?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('\n').trim() || '';
+            const finishReason = data?.candidates?.[0]?.finishReason || '';
+            const promptFeedback = data?.promptFeedback;
+            const blockReason = promptFeedback?.blockReason || '';
+            const apiError = data?.error?.message || '';
+
+            lastErrorMessage = apiError;
+            lastFinishReason = finishReason;
+            lastBlockReason = blockReason;
+
+            if (!response.ok) {
+                const isHighDemand = apiError.toLowerCase().includes('high demand');
+                if (isHighDemand) {
+                    continue;
+                }
+
+                return {
+                    statusCode: 502,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    body: JSON.stringify({
+                        error: apiError || blockReason || finishReason || 'Resposta invalida do Gemini.'
+                    })
+                };
+            }
+
+            if (prompt) {
+                bestPrompt = prompt;
+                break;
+            }
         }
 
-        if (!prompt) {
+        if (!bestPrompt) {
+            const friendlyWarning = lastErrorMessage.toLowerCase().includes('high demand')
+                ? 'A IA esta com muito uso no momento. Geramos uma versao completa automaticamente para voce continuar agora.'
+                : lastBlockReason || lastFinishReason
+                  ? 'A IA nao conseguiu montar a resposta completa agora. Geramos uma versao estruturada automaticamente para voce.'
+                  : 'Nao foi possivel obter uma resposta completa da IA agora. Geramos uma versao estruturada automaticamente para voce.';
+
             return {
                 statusCode: 200,
                 headers: {
@@ -284,16 +308,15 @@ exports.handler = async (event) => {
                 },
                 body: JSON.stringify({
                     prompt: fallbackDraft,
-                    warning:
-                        blockReason || finishReason
-                            ? `Gemini nao retornou texto utilizavel (${blockReason || finishReason}). Foi usado o rascunho estruturado.`
-                            : 'Gemini nao retornou texto utilizavel. Foi usado o rascunho estruturado.'
+                    warning: friendlyWarning
                 })
             };
         }
 
         const finalPrompt =
-            prompt.length >= fallbackDraft.length * 0.75 && prompt.split('\n').length >= 20 ? prompt : fallbackDraft;
+            bestPrompt.length >= fallbackDraft.length * 0.75 && bestPrompt.split('\n').length >= 20
+                ? bestPrompt
+                : fallbackDraft;
 
         return {
             statusCode: 200,
@@ -305,7 +328,7 @@ exports.handler = async (event) => {
                 prompt: finalPrompt,
                 warning:
                     finalPrompt === fallbackDraft
-                        ? 'A resposta do Gemini veio curta demais. Foi usado o rascunho estruturado completo.'
+                        ? 'A IA respondeu de forma muito curta. Geramos uma versao estruturada completa para voce.'
                         : ''
             })
         };

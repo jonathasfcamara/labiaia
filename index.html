@@ -985,6 +985,10 @@ Regras gerais de comportamento do agente:
                 return 'A variavel GEMINI_API_KEY nao esta configurada no ambiente do Netlify.';
             }
 
+            if (message.toLowerCase().includes('high demand')) {
+                return 'A IA esta com muito uso no momento. Tente novamente em instantes.';
+            }
+
             if (message) {
                 return `Erro ao usar Gemini: ${message}`;
             }
