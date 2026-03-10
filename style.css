@@ -1559,6 +1559,7 @@ footer p, footer a {
 
 .prompt-field input,
 .prompt-field textarea,
+.prompt-field select,
 .prompt-gerado-output {
     width: 100%;
     padding: 12px 14px;
@@ -1578,6 +1579,7 @@ footer p, footer a {
 
 .prompt-field input:focus,
 .prompt-field textarea:focus,
+.prompt-field select:focus,
 .prompt-gerado-output:focus {
     outline: none;
     border-color: var(--primary-blue);
