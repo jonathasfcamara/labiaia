@@ -1617,8 +1617,38 @@ footer p, footer a {
     box-shadow: 0 8px 20px rgba(0, 140, 255, 0.35);
 }
 
+.btn-gemini {
+    background: linear-gradient(90deg, #00b894 0%, #00d084 100%);
+    color: #04131d;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-gemini:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0, 208, 132, 0.28);
+}
+
+.btn-gemini:disabled {
+    cursor: wait;
+    opacity: 0.75;
+    transform: none;
+    box-shadow: none;
+}
+
 .prompt-copy-feedback {
     color: #4fd98a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-height: 20px;
+}
+
+.prompt-ai-feedback {
+    color: #8ef0c7;
     font-weight: 700;
     font-size: 0.9rem;
     min-height: 20px;

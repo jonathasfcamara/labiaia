@@ -407,6 +407,8 @@
 
                 <div class="prompt-buttons">
                     <button type="button" id="btnGerarPrompt" class="btn-main">GERAR PROMPT</button>
+                    <button type="button" id="btnGerarComIa" class="btn-gemini">GERAR COM IA</button>
+                    <p id="promptAiFeedback" class="prompt-ai-feedback" aria-live="polite"></p>
                 </div>
 
                 <textarea id="promptGerado" class="prompt-gerado-output" readonly placeholder="O prompt gerado aparecerá aqui..."></textarea>
@@ -725,9 +727,11 @@
 
         // --- GERADOR DE PROMPT SIMPLES ---
         const btnGerarPrompt = document.getElementById('btnGerarPrompt');
+        const btnGerarComIa = document.getElementById('btnGerarComIa');
         const btnCopiarPrompt = document.getElementById('btnCopiarPrompt');
         const promptGerado = document.getElementById('promptGerado');
         const promptCopyFeedback = document.getElementById('promptCopyFeedback');
+        const promptAiFeedback = document.getElementById('promptAiFeedback');
 
         const getInputValue = (id) => {
             const element = document.getElementById(id);
@@ -885,12 +889,124 @@ Regras gerais de comportamento do agente:
             return sections.join('\n');
         };
 
+        const coletarDadosPrompt = () => ({
+            agenteNome: getInputValue('agenteNome'),
+            agenteEmpresaProfissional: getInputValue('agenteEmpresaProfissional'),
+            agenteAreaAtuacao: getInputValue('agenteAreaAtuacao'),
+            agenteFuncaoPrincipal: getInputValue('agenteFuncaoPrincipal'),
+            agenteTomComunicacao: getInputValue('agenteTomComunicacao'),
+            objetivoAgente: getInputValue('objetivoAgente'),
+            mensagemInicial: getInputValue('mensagemInicial'),
+            pergunta1: getInputValue('pergunta1'),
+            pergunta2: getInputValue('pergunta2'),
+            pergunta3: getInputValue('pergunta3'),
+            pergunta4: getInputValue('pergunta4'),
+            pergunta5: getInputValue('pergunta5'),
+            mensagemResumo: getInputValue('mensagemResumo'),
+            resumoCampo1: getInputValue('resumoCampo1'),
+            resumoCampo2: getInputValue('resumoCampo2'),
+            resumoCampo3: getInputValue('resumoCampo3'),
+            resumoCampo4: getInputValue('resumoCampo4'),
+            resumoCampo5: getInputValue('resumoCampo5'),
+            descricaoAcaoFinal: getInputValue('descricaoAcaoFinal'),
+            linkFinal: getInputValue('linkFinal'),
+            empresaNome: getInputValue('empresaNome'),
+            empresaEndereco: getInputValue('empresaEndereco'),
+            empresaCidadeEstado: getInputValue('empresaCidadeEstado'),
+            empresaTelefone: getInputValue('empresaTelefone'),
+            empresaSite: getInputValue('empresaSite'),
+            empresaInstagram: getInputValue('empresaInstagram'),
+            mensagemEncerramento: getInputValue('mensagemEncerramento')
+        });
+
+        const atualizarEstadoBotaoIa = (loading) => {
+            if (!btnGerarComIa) return;
+            btnGerarComIa.disabled = loading;
+            btnGerarComIa.textContent = loading ? 'GERANDO...' : 'GERAR COM IA';
+        };
+
+        const getMensagemErroIa = (error) => {
+            const message = error instanceof Error ? error.message : String(error || '');
+
+            if (window.location.protocol === 'file:') {
+                return 'Abra o site em um servidor ou no Netlify. O botao com IA nao funciona abrindo o index.html direto.';
+            }
+
+            if (message.includes('Failed to fetch')) {
+                return 'A function do Netlify nao foi encontrada. Rode com Netlify Dev ou publique no Netlify.';
+            }
+
+            if (message.includes('GEMINI_API_KEY nao configurada')) {
+                return 'A variavel GEMINI_API_KEY nao esta configurada no ambiente do Netlify.';
+            }
+
+            if (message) {
+                return `Erro ao usar Gemini: ${message}`;
+            }
+
+            return 'Nao foi possivel usar o Gemini agora. O prompt manual foi gerado como fallback.';
+        };
+
         if (btnGerarPrompt && promptGerado) {
             btnGerarPrompt.addEventListener('click', () => {
                 const prompt = montarPromptSimples();
                 if (prompt) {
                     promptGerado.value = prompt;
                     if (promptCopyFeedback) promptCopyFeedback.textContent = '';
+                    if (promptAiFeedback) promptAiFeedback.textContent = '';
+                }
+            });
+        }
+
+        if (btnGerarComIa && promptGerado) {
+            btnGerarComIa.addEventListener('click', async () => {
+                const promptBase = montarPromptSimples();
+                const formData = coletarDadosPrompt();
+                const hasContent = Object.values(formData).some((value) => value);
+
+                if (!hasContent) {
+                    promptGerado.value = promptBase;
+                    if (promptAiFeedback) {
+                        promptAiFeedback.textContent = 'Preencha ao menos um campo antes de gerar com IA.';
+                    }
+                    return;
+                }
+
+                atualizarEstadoBotaoIa(true);
+                if (promptCopyFeedback) promptCopyFeedback.textContent = '';
+                if (promptAiFeedback) {
+                    promptAiFeedback.textContent = 'Gerando uma versao mais estruturada com Gemini...';
+                }
+
+                try {
+                    const response = await fetch('/.netlify/functions/generate-prompt-gemini', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            formData,
+                            promptBase
+                        })
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+
+                    if (!response.ok || !result.prompt) {
+                        throw new Error(result.error || 'Falha ao gerar o prompt com IA.');
+                    }
+
+                    promptGerado.value = result.prompt;
+                    if (promptAiFeedback) {
+                        promptAiFeedback.textContent = 'Prompt gerado com Gemini.';
+                    }
+                } catch (error) {
+                    promptGerado.value = promptBase;
+                    if (promptAiFeedback) {
+                        promptAiFeedback.textContent = getMensagemErroIa(error);
+                    }
+                } finally {
+                    atualizarEstadoBotaoIa(false);
                 }
             });
         }
