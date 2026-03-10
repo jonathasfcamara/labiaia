@@ -986,7 +986,15 @@ Regras gerais de comportamento do agente:
             }
 
             if (message.toLowerCase().includes('high demand')) {
-                return 'A IA esta com muito uso no momento. Tente novamente em instantes.';
+                return 'A IA esta com muito uso no momento. Aguarde alguns minutos e tente novamente.';
+            }
+
+            if (
+                message.toLowerCase().includes('quota exceeded') ||
+                message.toLowerCase().includes('rate limit') ||
+                message.toLowerCase().includes('billing')
+            ) {
+                return 'A geracao com IA esta temporariamente indisponivel no momento. Aguarde alguns minutos e tente novamente.';
             }
 
             if (message) {

@@ -271,8 +271,17 @@ exports.handler = async (event) => {
 
             if (!response.ok) {
                 const isHighDemand = apiError.toLowerCase().includes('high demand');
+                const isQuotaExceeded =
+                    apiError.toLowerCase().includes('quota exceeded') ||
+                    apiError.toLowerCase().includes('rate limit') ||
+                    apiError.toLowerCase().includes('billing');
+
                 if (isHighDemand) {
                     continue;
+                }
+
+                if (isQuotaExceeded) {
+                    break;
                 }
 
                 return {
@@ -294,11 +303,14 @@ exports.handler = async (event) => {
         }
 
         if (!bestPrompt) {
-            const friendlyWarning = lastErrorMessage.toLowerCase().includes('high demand')
-                ? 'A IA esta com muito uso no momento. Geramos uma versao completa automaticamente para voce continuar agora.'
-                : lastBlockReason || lastFinishReason
-                  ? 'A IA nao conseguiu montar a resposta completa agora. Geramos uma versao estruturada automaticamente para voce.'
-                  : 'Nao foi possivel obter uma resposta completa da IA agora. Geramos uma versao estruturada automaticamente para voce.';
+            const errorText = lastErrorMessage.toLowerCase();
+            const friendlyWarning = errorText.includes('high demand')
+                ? 'A IA esta com muito uso no momento. Aguarde alguns minutos e tente novamente. Enquanto isso, geramos uma versao completa automaticamente para voce continuar agora.'
+                : errorText.includes('quota exceeded') || errorText.includes('rate limit') || errorText.includes('billing')
+                  ? 'A geracao com IA esta temporariamente indisponivel no momento. Aguarde alguns minutos e tente novamente. Enquanto isso, geramos uma versao completa automaticamente para voce continuar.'
+                  : lastBlockReason || lastFinishReason
+                    ? 'A IA nao conseguiu montar a resposta completa agora. Geramos uma versao estruturada automaticamente para voce.'
+                    : 'Nao foi possivel obter uma resposta completa da IA agora. Geramos uma versao estruturada automaticamente para voce.';
 
             return {
                 statusCode: 200,
