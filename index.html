@@ -81,7 +81,9 @@
 
             <!-- Plano Básico -->
             <div class="plano" data-plan="basico" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• Atendimento IA</td><td style='padding:2px 0;'>• WhatsApp</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Agente de Chat</td><td style='padding:2px 0;'>• Funil de Vendas</td></tr></table>">
-                <img src="/abc/plano-basico.png" alt="Plano Básico">
+                <div class="plano-visual">
+                    <img src="/abc/plano-basico.png" alt="Plano Básico">
+                </div>
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+B%C3%A1sico+-+Atendimento+IA+%2B+WhatsApp" class="btn-teste">Teste grátis por 7 dias</a>
                     <small class="btn-subtext">Sem compromisso e sem cartão</small>
@@ -90,7 +92,9 @@
 
             <!-- Plano Premium (destaque) -->
             <div class="plano plano-premium" data-plan="premium" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• Conversões</td><td style='padding:2px 0;'>• Agente de Chat</td></tr><tr><td style='padding:2px 8px 2px 0;'>• WhatsApp</td><td style='padding:2px 0;'>• Funil de Vendas</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Redes Sociais</td><td style='padding:2px 0;'>• Produtos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Tarefas</td><td style='padding:2px 0;'>• Contatos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Automação</td><td style='padding:2px 0;'>• Cadência</td></tr></table>">
-                <img src="/abc/plano-premium.png" alt="Plano Premium">
+                <div class="plano-visual">
+                    <img src="/abc/plano-premium.png" alt="Plano Premium">
+                </div>
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Premium+%E2%80%94+Plataforma+Completa" class="btn-teste">Teste grátis por 7 dias</a>
                     <small class="btn-subtext">Sem compromisso e sem cartão</small>
@@ -99,7 +103,9 @@
 
             <!-- Plano Intermediário -->
             <div class="plano" data-plan="intermediario" data-tools="<table style='width:100%; border-collapse: collapse;'><tr><td style='padding:2px 8px 2px 0;'>• IA + CRM</td><td style='padding:2px 0;'>• CRM</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Funil de Vendas</td><td style='padding:2px 0;'>• Produtos</td></tr><tr><td style='padding:2px 8px 2px 0;'>• Contatos</td><td style='padding:2px 0;'>• Agente de Chat</td></tr><tr><td style='padding:2px 8px 2px 0;'>• WhatsApp</td><td style='padding:2px 0;'></td></tr></table>">
-                <img src="/abc/plano-intermediario.png" alt="Plano Intermediário">
+                <div class="plano-visual">
+                    <img src="/abc/plano-intermediario.png" alt="Plano Intermediário">
+                </div>
                 <div class="btn-group">
                     <a href="http://app.labiaia.com.br/enrollment/new?product=LabiaIA+Plano+Intermedi%C3%A1rio+%E2%80%94+IA+%2B+CRM" class="btn-teste">Teste grátis por 7 dias</a>
                     <small class="btn-subtext">Sem compromisso e sem cartão</small>
@@ -589,7 +595,57 @@
             planosContainer.dataset.touchMoved = 'false';
         }
 
+        let planosReflexTimeout;
+
+        function initPlanosReflex() {
+            const planosVisuais = document.querySelectorAll('.plano-visual');
+            if (!planosVisuais.length) return;
+
+            planosVisuais.forEach((visual) => {
+                const randomDuration = (1.25 + Math.random() * 0.45).toFixed(2);
+                const randomAngle = (8 + Math.random() * 7).toFixed(1);
+                const randomMidX = (165 + Math.random() * 45).toFixed(0);
+                const randomEndX = (500 + Math.random() * 65).toFixed(0);
+                const randomMidY = (12 + Math.random() * 16).toFixed(0);
+                const randomEndY = (38 + Math.random() * 20).toFixed(0);
+
+                visual.style.setProperty('--plano-reflex-duration', `${randomDuration}s`);
+                visual.style.setProperty('--plano-reflex-angle', `${randomAngle}deg`);
+                visual.style.setProperty('--plano-reflex-mid-x', `${randomMidX}%`);
+                visual.style.setProperty('--plano-reflex-end-x', `${randomEndX}%`);
+                visual.style.setProperty('--plano-reflex-mid-y', `${randomMidY}%`);
+                visual.style.setProperty('--plano-reflex-end-y', `${randomEndY}%`);
+                visual.classList.remove('reflex-active');
+            });
+
+            if (planosReflexTimeout) {
+                window.clearTimeout(planosReflexTimeout);
+            }
+
+            const triggerNextReflex = (lastIndex = -1) => {
+                const candidates = Array.from(planosVisuais).filter((_, index) => index !== lastIndex);
+                const nextVisual = candidates[Math.floor(Math.random() * candidates.length)] || planosVisuais[0];
+                const nextIndex = Array.from(planosVisuais).indexOf(nextVisual);
+                const durationSeconds = parseFloat(getComputedStyle(nextVisual).getPropertyValue('--plano-reflex-duration')) || 1.45;
+                const durationMs = durationSeconds * 1000;
+
+                planosVisuais.forEach((visual) => visual.classList.remove('reflex-active'));
+                void nextVisual.offsetWidth;
+                nextVisual.classList.add('reflex-active');
+
+                planosReflexTimeout = window.setTimeout(() => {
+                    nextVisual.classList.remove('reflex-active');
+                    planosReflexTimeout = window.setTimeout(() => {
+                        triggerNextReflex(nextIndex);
+                    }, 1000);
+                }, durationMs);
+            };
+
+            planosReflexTimeout = window.setTimeout(() => triggerNextReflex(), 400);
+        }
+
         window.addEventListener('load', initPlanosCarousel);
+        window.addEventListener('load', initPlanosReflex);
         window.addEventListener('resize', initPlanosCarousel);
 
         // --- MODAL POPUP PARA PLANOS ---

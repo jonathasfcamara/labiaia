@@ -199,48 +199,105 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
     align-items: center;
 }
 
-.plano img {
-    width: 260px;
+.plano-visual {
+    position: relative;
+    display: inline-block;
     border-radius: 14px;
-    transition: 0.35s;
-    animation: flutuarPlano 3.8s ease-in-out infinite;
+    overflow: hidden;
+    --plano-reflex-duration: 1.45s;
+    --plano-reflex-angle: 10deg;
+    --plano-reflex-start-x: -360%;
+    --plano-reflex-mid-x: 180%;
+    --plano-reflex-end-x: 520%;
+    --plano-reflex-start-y: -42%;
+    --plano-reflex-mid-y: 16%;
+    --plano-reflex-end-y: 46%;
+    --plano-reflex-color-1: rgba(255, 255, 255, 0);
+    --plano-reflex-color-2: rgba(255, 255, 255, 0.30);
+    --plano-reflex-color-3: rgba(255, 255, 255, 0.92);
+    --plano-reflex-color-4: rgba(255, 255, 255, 0.34);
+    --plano-reflex-color-5: rgba(255, 255, 255, 0);
+}
+
+.plano[data-plan="basico"] .plano-visual,
+.plano[data-plan="intermediario"] .plano-visual {
+    transform: translateY(38px);
+}
+
+.plano[data-plan="basico"] .btn-group,
+.plano[data-plan="intermediario"] .btn-group {
+    transform: translateY(38px);
+}
+
+.plano-visual::after {
+    content: "";
+    position: absolute;
+    top: -42%;
+    left: -120%;
+    width: 42%;
+    height: 220%;
+    background: linear-gradient(135deg,
+        var(--plano-reflex-color-1) 0%,
+        var(--plano-reflex-color-2) 34%,
+        var(--plano-reflex-color-3) 50%,
+        var(--plano-reflex-color-4) 66%,
+        var(--plano-reflex-color-5) 100%);
+    transform: rotate(var(--plano-reflex-angle));
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(1px);
+    opacity: 0;
+}
+
+.plano-visual.reflex-active::after {
+    animation: brilhoPlano var(--plano-reflex-duration) linear forwards;
+}
+
+.plano-premium .plano-visual {
+    --plano-reflex-color-1: rgba(255, 214, 102, 0);
+    --plano-reflex-color-2: rgba(255, 214, 102, 0.34);
+    --plano-reflex-color-3: rgba(255, 236, 179, 0.96);
+    --plano-reflex-color-4: rgba(255, 214, 102, 0.38);
+    --plano-reflex-color-5: rgba(255, 214, 102, 0);
+}
+
+@keyframes brilhoPlano {
+    0% {
+        transform: translate(var(--plano-reflex-start-x), var(--plano-reflex-start-y)) rotate(var(--plano-reflex-angle));
+        opacity: 0;
+    }
+    18% {
+        opacity: 1;
+    }
+    50% {
+        transform: translate(var(--plano-reflex-mid-x), var(--plano-reflex-mid-y)) rotate(var(--plano-reflex-angle));
+        opacity: 0.95;
+    }
+    100% {
+        transform: translate(var(--plano-reflex-end-x), var(--plano-reflex-end-y)) rotate(var(--plano-reflex-angle));
+        opacity: 0;
+    }
+}
+
+.plano img {
+    width: 290px;
+    display: block;
+    border-radius: 14px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
     cursor: pointer;
 }
 
 /* efeito hover */
 
 .plano img:hover {
-    transform: translateY(-5px) scale(1.03);
+    transform: scale(1.02);
+    box-shadow: 0 16px 34px rgba(0, 140, 255, 0.18);
 }
 
 /* ===== PREMIUM DESTAQUE ===== */
 
 .plano-premium img {
-    width: 300px;
-    transform: scale(1.05);
-    animation: flutuarPlanoPremium 4.2s ease-in-out infinite;
-}
-
-.plano:nth-child(1) img {
-    animation-delay: 0s;
-}
-
-.plano:nth-child(2) img {
-    animation-delay: 0.25s;
-}
-
-.plano:nth-child(3) img {
-    animation-delay: 0.5s;
-}
-
-@keyframes flutuarPlano {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes flutuarPlanoPremium {
-    0%, 100% { transform: scale(1.05) translateY(0); }
-    50% { transform: scale(1.05) translateY(-12px); }
+    width: 290px;
 }
 
 /* ===== BOTÃO ===== */
@@ -1310,18 +1367,15 @@ footer p, footer a {
         animation-delay: 2s !important; /* Aguarda 2 segundos antes de começar */
     }
 
-    @media (max-width: 1024px) {
+@media (max-width: 1024px) {
 
     .planos-container {
         gap: 30px;
     }
 
-    .plano img {
-        width: 220px;
-    }
-
+    .plano img,
     .plano-premium img {
-        width: 280px;
+        width: 250px;
     }
 
 }
@@ -1418,11 +1472,7 @@ footer p, footer a {
         font-size: 28px;
     }
 
-    .plano img {
-        width: 90%;
-        max-width: 280px;
-    }
-
+    .plano img,
     .plano-premium img {
         width: 95%;
         max-width: 300px;
@@ -1437,8 +1487,7 @@ footer p, footer a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .plano img,
-    .plano-premium img {
+    .plano-visual::after {
         animation: none !important;
     }
 }
@@ -1460,6 +1509,7 @@ footer p, footer a {
         flex: 0 0 auto;
         min-width: 280px;
         width: 280px;
+        margin-top: 0;
     }
 
     .plano-premium {
