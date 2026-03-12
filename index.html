@@ -595,57 +595,7 @@
             planosContainer.dataset.touchMoved = 'false';
         }
 
-        let planosReflexTimeout;
-
-        function initPlanosReflex() {
-            const planosVisuais = document.querySelectorAll('.plano-visual');
-            if (!planosVisuais.length) return;
-
-            planosVisuais.forEach((visual) => {
-                const randomDuration = (1.25 + Math.random() * 0.45).toFixed(2);
-                const randomAngle = (8 + Math.random() * 7).toFixed(1);
-                const randomMidX = (165 + Math.random() * 45).toFixed(0);
-                const randomEndX = (500 + Math.random() * 65).toFixed(0);
-                const randomMidY = (12 + Math.random() * 16).toFixed(0);
-                const randomEndY = (38 + Math.random() * 20).toFixed(0);
-
-                visual.style.setProperty('--plano-reflex-duration', `${randomDuration}s`);
-                visual.style.setProperty('--plano-reflex-angle', `${randomAngle}deg`);
-                visual.style.setProperty('--plano-reflex-mid-x', `${randomMidX}%`);
-                visual.style.setProperty('--plano-reflex-end-x', `${randomEndX}%`);
-                visual.style.setProperty('--plano-reflex-mid-y', `${randomMidY}%`);
-                visual.style.setProperty('--plano-reflex-end-y', `${randomEndY}%`);
-                visual.classList.remove('reflex-active');
-            });
-
-            if (planosReflexTimeout) {
-                window.clearTimeout(planosReflexTimeout);
-            }
-
-            const triggerNextReflex = (lastIndex = -1) => {
-                const candidates = Array.from(planosVisuais).filter((_, index) => index !== lastIndex);
-                const nextVisual = candidates[Math.floor(Math.random() * candidates.length)] || planosVisuais[0];
-                const nextIndex = Array.from(planosVisuais).indexOf(nextVisual);
-                const durationSeconds = parseFloat(getComputedStyle(nextVisual).getPropertyValue('--plano-reflex-duration')) || 1.45;
-                const durationMs = durationSeconds * 1000;
-
-                planosVisuais.forEach((visual) => visual.classList.remove('reflex-active'));
-                void nextVisual.offsetWidth;
-                nextVisual.classList.add('reflex-active');
-
-                planosReflexTimeout = window.setTimeout(() => {
-                    nextVisual.classList.remove('reflex-active');
-                    planosReflexTimeout = window.setTimeout(() => {
-                        triggerNextReflex(nextIndex);
-                    }, 1000);
-                }, durationMs);
-            };
-
-            planosReflexTimeout = window.setTimeout(() => triggerNextReflex(), 400);
-        }
-
         window.addEventListener('load', initPlanosCarousel);
-        window.addEventListener('load', initPlanosReflex);
         window.addEventListener('resize', initPlanosCarousel);
 
         // --- MODAL POPUP PARA PLANOS ---
