@@ -197,6 +197,49 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+    animation: planoReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transition: transform 0.35s ease, filter 0.35s ease;
+    will-change: transform;
+}
+
+.plano::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    width: 72%;
+    height: 22px;
+    background: radial-gradient(circle, rgba(0, 140, 255, 0.24) 0%, rgba(0, 140, 255, 0.08) 45%, rgba(0, 140, 255, 0) 72%);
+    transform: translateX(-50%) scale(0.86);
+    filter: blur(10px);
+    opacity: 0.45;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.plano:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.plano:nth-child(2) {
+    animation-delay: 0.22s;
+}
+
+.plano:nth-child(3) {
+    animation-delay: 0.36s;
+}
+
+.plano:hover {
+    transform: translateY(-10px) scale(1.015);
+    filter: saturate(1.08);
+}
+
+.plano:hover::before {
+    transform: translateX(-50%) scale(1.08);
+    opacity: 0.75;
 }
 
 .plano-visual {
@@ -235,6 +278,62 @@ h1 { font-size: 2.1rem; line-height: 1.2; margin-bottom: 20px; }
 
 .plano-premium img {
     width: 290px;
+}
+
+.plano-premium::before {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.34) 0%, rgba(255, 166, 0, 0.12) 46%, rgba(255, 166, 0, 0) 75%);
+    opacity: 0.62;
+}
+
+.planos-labia.show .plano:nth-child(1) {
+    animation:
+        planoReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards,
+        flutuarPlano 4.8s ease-in-out 1s infinite;
+}
+
+.planos-labia.show .plano:nth-child(2) {
+    animation:
+        planoReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards,
+        flutuarPlanoPremium 5.2s ease-in-out 1.1s infinite;
+}
+
+.planos-labia.show .plano:nth-child(3) {
+    animation:
+        planoReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.36s forwards,
+        flutuarPlano 4.9s ease-in-out 1.2s infinite;
+}
+
+@keyframes planoReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(36px) scale(0.96);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes flutuarPlano {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes flutuarPlanoPremium {
+    0%, 100% {
+        transform: translateY(0) scale(1.02);
+    }
+    50% {
+        transform: translateY(-14px) scale(1.02);
+    }
 }
 
 /* ===== BOTÃO ===== */
