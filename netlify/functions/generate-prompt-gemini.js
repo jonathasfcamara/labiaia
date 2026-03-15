@@ -325,10 +325,7 @@ exports.handler = async (event) => {
             };
         }
 
-        const bestPromptLineCount = bestPrompt.split('\n').filter((line) => line.trim()).length;
-        const bestPromptLooksTooShort =
-            bestPrompt.length < fallbackDraft.length * 0.4 && bestPromptLineCount < 12;
-        const finalPrompt = bestPromptLooksTooShort ? fallbackDraft : bestPrompt;
+        const finalPrompt = bestPrompt || fallbackDraft;
 
         return {
             statusCode: 200,
@@ -338,10 +335,7 @@ exports.handler = async (event) => {
             },
                 body: JSON.stringify({
                     prompt: finalPrompt,
-                    warning:
-                        finalPrompt === fallbackDraft
-                        ? 'A resposta da IA veio curta demais nesta tentativa. Geramos uma versao estruturada completa para voce.'
-                        : ''
+                    warning: ''
                 })
             };
     } catch (error) {
