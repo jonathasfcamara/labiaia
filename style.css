@@ -1676,6 +1676,7 @@ footer p, footer a {
     color: var(--text-light);
     font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
+    transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
 }
 
 .prompt-field textarea {
@@ -1690,6 +1691,16 @@ footer p, footer a {
     color: rgba(232, 241, 251, 0.52);
 }
 
+.prompt-field input:not(.example-value),
+.prompt-field textarea:not(.example-value),
+.prompt-field select:not(.example-value),
+.prompt-ai-extra-input:not(.example-value) {
+    background: linear-gradient(180deg, rgba(0, 208, 132, 0.16) 0%, rgba(0, 184, 148, 0.1) 100%);
+    border-color: rgba(0, 208, 132, 0.55);
+    box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.14), 0 10px 24px rgba(0, 208, 132, 0.08);
+    color: #eefcf6;
+}
+
 .prompt-field input::placeholder,
 .prompt-field textarea::placeholder,
 .prompt-ai-extra-input::placeholder {
@@ -1701,8 +1712,8 @@ footer p, footer a {
 .prompt-field select:focus,
 .prompt-gerado-output:focus {
     outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.2);
+    border-color: #00d084;
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.2), 0 0 22px rgba(0, 208, 132, 0.12);
 }
 
 .prompt-buttons {
@@ -1739,12 +1750,13 @@ footer p, footer a {
     resize: vertical;
     font: inherit;
     line-height: 1.5;
+    transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
 }
 
 .prompt-ai-extra-input:focus {
     outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.2);
+    border-color: #00d084;
+    box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.2), 0 0 22px rgba(0, 208, 132, 0.12);
 }
 
 .prompt-generator-note {
