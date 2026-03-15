@@ -325,10 +325,10 @@ exports.handler = async (event) => {
             };
         }
 
-        const finalPrompt =
-            bestPrompt.length >= fallbackDraft.length * 0.75 && bestPrompt.split('\n').length >= 20
-                ? bestPrompt
-                : fallbackDraft;
+        const bestPromptLineCount = bestPrompt.split('\n').filter((line) => line.trim()).length;
+        const bestPromptLooksTooShort =
+            bestPrompt.length < fallbackDraft.length * 0.4 && bestPromptLineCount < 12;
+        const finalPrompt = bestPromptLooksTooShort ? fallbackDraft : bestPrompt;
 
         return {
             statusCode: 200,
@@ -336,14 +336,14 @@ exports.handler = async (event) => {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({
-                prompt: finalPrompt,
-                warning:
-                    finalPrompt === fallbackDraft
-                        ? 'A IA respondeu de forma muito curta. Geramos uma versao estruturada completa para voce.'
+                body: JSON.stringify({
+                    prompt: finalPrompt,
+                    warning:
+                        finalPrompt === fallbackDraft
+                        ? 'A resposta da IA veio curta demais nesta tentativa. Geramos uma versao estruturada completa para voce.'
                         : ''
-            })
-        };
+                })
+            };
     } catch (error) {
         return {
             statusCode: 500,
